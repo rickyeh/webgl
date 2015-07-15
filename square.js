@@ -20,7 +20,6 @@ window.onload = function init()
       0.5, -0.5
     ];
 
-
     //
     //  Configure WebGL
     //
