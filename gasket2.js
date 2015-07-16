@@ -4,10 +4,10 @@ var canvas;
 var gl;
 
 var points = [];
+var flag = true;
 
 var NumTimesToSubdivide = 1;
-
-var angleToRotate = (Math.PI);
+var angleToRotate = 0
 
 window.onload = function init() {
     canvas = document.getElementById("gl-canvas");
@@ -24,17 +24,24 @@ window.onload = function init() {
     // First, initialize the corners of our gasket with three points.
 
     var vertices = [
-        vec2(-1, -1),
-        vec2(0, 1),
-        vec2(1, -1)
+        vec2(-0.5, -0.5),
+        vec2(0, 0.5),
+        vec2(0.5, -0.5)
     ];
+
+    // var vertices = [
+    //     vec2(-1, -1),
+    //     vec2(0, 1),
+    //     vec2(1, -1)
+    // ];
 
     divideTriangle(vertices[0], vertices[1], vertices[2],
         NumTimesToSubdivide);
 
-    rotate(angleToRotate);  // Do any rotation if provided
-
     console.dir(points);
+
+    // rotate(angleToRotate);  // Do any rotation if provided
+
     //
     //  Configure WebGL
     //
@@ -63,7 +70,9 @@ window.onload = function init() {
 };
 
 function triangle(a, b, c) {
-    points.push(a, b, c);
+    points.push(rotate(a));
+    points.push(rotate(b));
+    points.push(rotate(c));
 }
 
 function divideTriangle(a, b, c, count) {
@@ -87,29 +96,53 @@ function divideTriangle(a, b, c, count) {
         divideTriangle(a, ab, ac, count);
         divideTriangle(c, ac, bc, count);
         divideTriangle(b, bc, ab, count);
+        // divideTriangle(ab, bc, ac, count);
     }
 }
 
-function rotate(rads) {
-    console.log('rotation function called with : ' + rads);
-    console.log(points.length);
-    for (var i = 0; i < points.length; i++) {
+function rotate(vertex) {
+    // if (flag) {
+    //     var d = 1;
+    // } else {
+        var d = Math.sqrt((vertex[0] * vertex[0]) + (vertex[1] * vertex[1]));
+        console.log(d);
+    // }
 
-        var x = points[i][0];
-        var y = points[i][1];
+    var nx = 0;
+    var ny = 0;
 
-        console.log('Before Coord: ' + i + ' - X: ' + x + ' Y: ' + y);
+    console.log('Vertex[0] - ' + vertex[0]);
+    console.log('Vertex[1] - ' + vertex[1]);
 
-        var nx = (x * Math.cos(rads)) - (y * Math.sin(rads));
-        var ny = (x * Math.sin(rads)) + (y * Math.cos(rads));
+    nx = vertex[0] * Math.cos(d * angleToRotate) - vertex[1] * Math.sin(d * angleToRotate);
+    ny = vertex[0] * Math.sin(d * angleToRotate) + vertex[1] * Math.cos(d * angleToRotate);
 
+    console.log('New X - ' + nx);
+    console.log('New Y - ' + ny);
 
-        points[i][0] = + nx.toFixed(3);
-        points[i][1] = + ny.toFixed(3);
-
-        console.log('After Coord: ' + i + ' - X: ' + points[i][0] + ' Y: ' + points[i][1]);
-    }
+    return [nx, ny];
 }
+
+// function rotate(rads) {
+//     console.log('rotation function called with : ' + rads);
+
+//     for (var i = 0; i < points.length; i++) {
+
+//         // console.log('Before Coord: ' + i + ' - X: ' + x + ' Y: ' + y);
+
+//         var nx = (points[i][0] * Math.cos(rads)) - (points[i][1] * Math.sin(rads));
+//         var ny = (points[i][0] * Math.sin(rads)) + (points[i][1] * Math.cos(rads));
+
+
+//         points[i][0] = + nx.toFixed(2);
+//         points[i][1] = + ny.toFixed(2);
+
+//         console.log('I: ' + i + '   Points[1][0]: ' + points[1][0]);
+
+//         console.log('After Coord: ' + i + ' - (' + points[i][0] + ' , ' + points[i][1] + ')');
+//     }
+//     console.dir(points[1][0]);
+// }
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
