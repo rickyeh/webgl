@@ -7,6 +7,10 @@ input {
     width: 400px;
 }
 
+p, h3 {
+    margin: 10px;
+}
+
 #input, #input2 {
     -moz-appearance: textfield;
     -webkit-appearance: textfield;
@@ -24,7 +28,8 @@ input {
 }
 
 #redraw {
+    font-size: 20px;
     margin: 10px;
-    height: 30px;
-    width: 100px;
+    height: 40px;
+    width: 150px;
 }

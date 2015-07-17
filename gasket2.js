@@ -5,12 +5,17 @@ var gl;
 
 var points = [];
 
-var NumTimesToSubdivide = 1;
-var angleToRotate = 0
+var NumTimesToSubdivide = 4;
+
+var degreesToRotate = 180;
+var radiansToRotate = (degreesToRotate * Math.PI) / 180;
+
 
 
 
 function init() {
+    points = [];
+
     canvas = document.getElementById("gl-canvas");
 
     gl = WebGLUtils.setupWebGL(canvas);
@@ -38,8 +43,6 @@ function init() {
 
     divideTriangle(vertices[0], vertices[1], vertices[2],
         NumTimesToSubdivide);
-
-    // rotate(angleToRotate);  // Do any rotation if provided
 
     //
     //  Configure WebGL
@@ -105,13 +108,21 @@ function rotate(vertex) {
     var nx = 0;
     var ny = 0;
 
-    nx = vertex[0] * Math.cos(d * angleToRotate) - vertex[1] * Math.sin(d * angleToRotate);
-    ny = vertex[0] * Math.sin(d * angleToRotate) + vertex[1] * Math.cos(d * angleToRotate);
+    nx = vertex[0] * Math.cos(d * radiansToRotate) - vertex[1] * Math.sin(d * radiansToRotate);
+    ny = vertex[0] * Math.sin(d * radiansToRotate) + vertex[1] * Math.cos(d * radiansToRotate);
 
     return [nx, ny];
 }
 
 function redraw() {
+    NumTimesToSubdivide = $('#input').html();
+    degreesToRotate = $('#input2').html();
+    radiansToRotate = (degreesToRotate * Math.PI) / 180;
+
+    console.log('Divisions : ' + NumTimesToSubdivide);
+    console.log('Degrees : ' + degreesToRotate);
+    console.log('Radians : ' + radiansToRotate);
+
     init();
 }
 
