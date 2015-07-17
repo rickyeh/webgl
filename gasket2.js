@@ -4,12 +4,13 @@ var canvas;
 var gl;
 
 var points = [];
-var flag = true;
 
 var NumTimesToSubdivide = 1;
 var angleToRotate = 0
 
-window.onload = function init() {
+
+
+function init() {
     canvas = document.getElementById("gl-canvas");
 
     gl = WebGLUtils.setupWebGL(canvas);
@@ -37,8 +38,6 @@ window.onload = function init() {
 
     divideTriangle(vertices[0], vertices[1], vertices[2],
         NumTimesToSubdivide);
-
-    console.dir(points);
 
     // rotate(angleToRotate);  // Do any rotation if provided
 
@@ -101,26 +100,19 @@ function divideTriangle(a, b, c, count) {
 }
 
 function rotate(vertex) {
-    // if (flag) {
-    //     var d = 1;
-    // } else {
-        var d = Math.sqrt((vertex[0] * vertex[0]) + (vertex[1] * vertex[1]));
-        console.log(d);
-    // }
+    var d = Math.sqrt((vertex[0] * vertex[0]) + (vertex[1] * vertex[1]));
 
     var nx = 0;
     var ny = 0;
 
-    console.log('Vertex[0] - ' + vertex[0]);
-    console.log('Vertex[1] - ' + vertex[1]);
-
     nx = vertex[0] * Math.cos(d * angleToRotate) - vertex[1] * Math.sin(d * angleToRotate);
     ny = vertex[0] * Math.sin(d * angleToRotate) + vertex[1] * Math.cos(d * angleToRotate);
 
-    console.log('New X - ' + nx);
-    console.log('New Y - ' + ny);
-
     return [nx, ny];
+}
+
+function redraw() {
+    init();
 }
 
 // function rotate(rads) {
@@ -148,3 +140,7 @@ function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, points.length);
 }
+
+$(document).ready(function() {
+    init();
+});
