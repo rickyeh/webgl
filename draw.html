@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+        <title>Draw Demo</title>
+
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec4 vPosition;
+            void main() {
+                gl_Position = vPosition;
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            precision mediump float;
+            void main() {
+                gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        </script>
+
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="Common/webgl-utils.js"></script>
+        <script type="text/javascript" src="Common/initShaders.js"></script>
+        <script type="text/javascript" src="Common/MV.js"></script>
+        <script type="text/javascript" src="draw.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="gasket2.css">
+    </head>
+    <body>
+        <canvas id="gl-canvas" width="800" height="600">
+            Oops ... your browser doesn't support the HTML5 canvas element
+        </canvas>
+        <h2>Subdivisions</h2>
+        <p>Enter # of subdivisions (0-10)</p>
+        <div id="input" contenteditable>4</div>
+        <h2>Angle</h2>
+        <p>Enter degrees to rotate with twist (0-360)</p>
+        <div id="input2" contenteditable>180</div>
+        <button onclick="redraw()" id="redraw" type="button">Draw!</button>
+
+    </body>
+</html>
