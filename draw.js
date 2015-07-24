@@ -30,7 +30,7 @@ function init() {
     //  Configure WebGL
     //
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(1.0, 1.0, 1.0, 1.0);
+    gl.clearColor(0.8, 0.8, 0.8, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     //
@@ -50,11 +50,13 @@ function init() {
 
     // add a vertext to GPU for each click
     canvas.addEventListener("click", function() {
-        console.log("(" + event.clientX + ", " + event.clientY + ")");
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
 
         var t = vec2(-1 + 2* event.clientX/canvas.width, -1 + 2*(canvas.height-event.clientY)/canvas.height);
+
+        console.log(t);
+        console.log("(" + event.clientX + ", " + event.clientY + ")");
 
         gl.bufferSubData(gl.ARRAY_BUFFER, 8*index, flatten(t));
         index++;
@@ -66,9 +68,7 @@ function init() {
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
-
-    for(var i = 0; i<index; i+=4)
-        gl.drawArrays( gl.TRIANGLE_FAN, i, 4 );
+    gl.drawArrays( gl.LINE_STRIP, 0, index );
 
     window.requestAnimFrame(render);
 }
