@@ -4,17 +4,22 @@ var canvas;
 var gl;
 
 var maxNumTriangles = 500;
-var maxNumVertices  = 3 * maxNumTriangles;
+var maxNumVertices = 3 * maxNumTriangles;
 var index = 0;
+var isMouseDown = false;
+
+var program;
+var vBuffer;
+var vPosition;
 
 var colors = [
-    vec4( 0.0, 0.0, 0.0, 1.0 ),  // black
-    vec4( 1.0, 0.0, 0.0, 1.0 ),  // red
-    vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-    vec4( 0.0, 1.0, 0.0, 1.0 ),  // green
-    vec4( 0.0, 0.0, 1.0, 1.0 ),  // blue
-    vec4( 1.0, 0.0, 1.0, 1.0 ),  // magenta
-    vec4( 0.0, 1.0, 1.0, 1.0 )   // cyan
+    vec4(0.0, 0.0, 0.0, 1.0), // black
+    vec4(1.0, 0.0, 0.0, 1.0), // red
+    vec4(1.0, 1.0, 0.0, 1.0), // yellow
+    vec4(0.0, 1.0, 0.0, 1.0), // green
+    vec4(0.0, 0.0, 1.0, 1.0), // blue
+    vec4(1.0, 0.0, 1.0, 1.0), // magenta
+    vec4(0.0, 1.0, 1.0, 1.0) // cyan
 ];
 
 
@@ -37,38 +42,57 @@ function init() {
     // Load shaders and initialize attribute buffers
     //
 
-    var program = initShaders(gl, "vertex-shader", "fragment-shader");
+    program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
 
-    var vBuffer = gl.createBuffer();
+    vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, 8 * maxNumVertices, gl.STATIC_DRAW);
 
-    var vPosition = gl.getAttribLocation(program, "vPosition");
+    vPosition = gl.getAttribLocation(program, "vPosition");
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
 
-    // add a vertext to GPU for each click
-    canvas.addEventListener("click", function() {
+    var $canvas = $('#gl-canvas');
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+    $canvas.mousedown(function() {
+        console.log('Mouse is pressed down');
 
-        var t = vec2(-1 + 2* event.clientX/canvas.width, -1 + 2*(canvas.height-event.clientY)/canvas.height);
+        isMouseDown = true;
+        draw();
+    });
 
-        console.log(t);
-        console.log("(" + event.clientX + ", " + event.clientY + ")");
+    $canvas.mousemove(function() {
+        if (isMouseDown) {
+            console.log('Drawing!!');
+            draw();
+        }
 
-        gl.bufferSubData(gl.ARRAY_BUFFER, 8*index, flatten(t));
-        index++;
+    });
+
+    $canvas.mouseup(function() {
+        console.log('Mouse is released');
+        isMouseDown = false;
     });
 
     render();
 }
 
+function draw() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
+
+    var t = vec2(-1 + 2 * event.clientX / canvas.width, -1 + 2 * (canvas.height - event.clientY) / canvas.height);
+
+    console.log(t);
+    console.log("(" + event.clientX + ", " + event.clientY + ")");
+
+    gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(t));
+    index++;
+}
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays( gl.LINE_STRIP, 0, index );
+    gl.drawArrays(gl.LINE_STRIP, 0, index);
 
     window.requestAnimFrame(render);
 }
