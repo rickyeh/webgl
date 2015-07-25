@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style type="text/css">
+            body{
+                font-size: 24px;
+                font-family: "Verdana";
+            }
+        </style>
+    </head>
     <script id="vertex-shader" type="x-shader/x-vertex">
 
         attribute vec4 vPosition;
@@ -28,9 +36,39 @@
     <script type="text/javascript" src="draw.js"></script>
 
     <body>
-        <canvas id="gl-canvas" width="512" height="512">
+        <canvas id="gl-canvas" width="700" height="700" style="float:left">
             Oops ... your browser doesn't support the HTML5 canvas element
         </canvas>
+        <p>Choose Your Color:</p>
+        <div id="colorPicker" style="float:left">
+            <form>
+                <input type="radio" name="color" value="0" checked>Black
+                <br>
+                <input type="radio" name="color" value="1">Red
+                <br>
+                <input type="radio" name="color" value="2">Yellow
+                <br>
+                <input type="radio" name="color" value="3">Green
+                <br>
+                <input type="radio" name="color" value="4">Blue
+                <br>
+                <input type="radio" name="color" value="5">Magenta
+                <br>
+                <input type="radio" name="color" value="6">Cyan
+                <br>
+            </form>
+        </div>
+        <p>Choose Your Brush Size:</p>
+        <div id="widthPicker" style="float:left">
+            <form>
+                <input type="radio" name="width" value="2" checked>Small
+                <br>
+                <input type="radio" name="width" value="6">Med
+                <br>
+                <input type="radio" name="width" value="10">Large
+                <br>
+            </form>
+        </div>
     </body>
 </html>
 

@@ -3,14 +3,19 @@
 var canvas;
 var gl;
 
-var maxNumTriangles = 500;
+var maxNumTriangles = 10000;
 var maxNumVertices = 3 * maxNumTriangles;
 var index = 0;
 var isMouseDown = false;
+var lineWidth = 2;
 
 var program;
 var vBuffer;
 var vPosition;
+
+var colorIndex;
+var vColor;
+var cBufferId;
 
 var colors = [
     vec4(0.0, 0.0, 0.0, 1.0), // black
@@ -53,10 +58,21 @@ function init() {
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(vPosition);
 
+    cBufferId = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, cBufferId );
+    gl.bufferData( gl.ARRAY_BUFFER, 16*maxNumVertices, gl.STATIC_DRAW );
+    
+    vColor = gl.getAttribLocation( program, "vColor" );
+    gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vColor );
+
     var $canvas = $('#gl-canvas');
 
     $canvas.mousedown(function() {
         console.log('Mouse is pressed down');
+        colorIndex = $('input[name=color]:checked').val();
+        lineWidth = $('input[name=width]:checked').val();
+
 
         isMouseDown = true;
         draw();
@@ -64,7 +80,6 @@ function init() {
 
     $canvas.mousemove(function() {
         if (isMouseDown) {
-            console.log('Drawing!!');
             draw();
         }
 
@@ -73,6 +88,8 @@ function init() {
     $canvas.mouseup(function() {
         console.log('Mouse is released');
         isMouseDown = false;
+
+        console.log(index);
     });
 
     render();
@@ -82,16 +99,20 @@ function draw() {
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
 
     var t = vec2(-1 + 2 * event.clientX / canvas.width, -1 + 2 * (canvas.height - event.clientY) / canvas.height);
-
     console.log(t);
-    console.log("(" + event.clientX + ", " + event.clientY + ")");
-
     gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(t));
+
+    t = vec4(colors[colorIndex]);
+    gl.bindBuffer( gl.ARRAY_BUFFER, cBufferId);
+    gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(t));
+
     index++;
 }
 
 function render() {
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.lineWidth(lineWidth);
     gl.drawArrays(gl.LINE_STRIP, 0, index);
 
     window.requestAnimFrame(render);
