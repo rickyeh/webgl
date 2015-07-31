@@ -1,21 +1,71 @@
 html {
     background-color: #222222;
+    font-family: "Verdana";
 }
 
 div {
     height: 100px;
     width: 100px;
-    box-shadow: 0px 0px 0px 2px white inset;
+    box-shadow: 0px 0px 0px 2px #888888 inset;
+    color: #ddd;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-top: 2px;
+    font-size: 14px;
+}
+
+li {
+    margin: 10px;
 }
 
 .section {
-    /*background-color: #FFFFFF;*/
     float: left;
     height: 600px;
 }
 
 .sidebarSection {
     width: 100%;
+}
+
+.textTitle {
+    color: #ddd;
+    text-align: center;
+    font-size: 20px;
+}
+
+.shapeToggle {
+    height: 20px;
+    width: 75px;
+    margin-top: 20px;
+    margin-left: 35%;
+}
+
+.controlsDiv {
+    width: 100%;
+    height: 33.3%;
+}
+
+.controlsLabel {
+    font-size: 14px;
+    position: relative;
+    top: 5px;
+    padding: 10px;
+}
+
+.locationXYZ {
+    float: left;
+    margin-left: 10px;
+}
+.coordinateDiv {
+    width: 15px;
+    height: 15px;
+    background-color: #EEE;
+    float: left;
+    margin-left: 2px;
+
 }
 
 #pageWrapper {
@@ -25,6 +75,7 @@ div {
 
 #leftSection {
     width: 200px;
+    background-color: #444444;
 }
 
 #midSection {
@@ -33,9 +84,10 @@ div {
 
 #rightSection {
     width: 200px;
+    background-color: #444444;
 }
 
-#shapeTitle {
+#shapeTitle, #objectsTitle {
     height: 6%;
 }
 
@@ -43,14 +95,11 @@ div {
     height: 94%
 }
 
-#objectsTitle {
-    height: 6%;
-}
-
-#objectsList {
+#objectsList, #controlsList {
     height: 47%;
 }
 
-#controlsList {
-    height: 47%;
+#shapeSpan, #objSpan {
+    position: relative;
+    top: 15%;
 }
