@@ -17,8 +17,19 @@ ul {
     font-size: 14px;
 }
 
-li {
+.minusPlus {
+    height: 15px;
+    width: 18px;
+    line-height: 10px;
+    font-weight: 600;
+}
+.locationLI {
     margin: 10px;
+}
+
+.rotationLI {
+    display: inline;
+    padding: 1px;
 }
 
 .section {
@@ -102,4 +113,9 @@ li {
 #shapeSpan, #objSpan {
     position: relative;
     top: 15%;
+}
+
+#rotationUL {
+    padding-top: 5px;
+    padding-left: 10px;
 }
