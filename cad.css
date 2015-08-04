@@ -76,12 +76,17 @@ ul {
     background-color: #EEE;
     float: left;
     margin-left: 2px;
+}
 
+.objectListItem {
+    height: 20px;
+    width: 100%;
 }
 
 #pageWrapper {
     height: 600px;
     width: 1000px;
+    margin: auto;
 }
 
 #leftSection {
@@ -110,6 +115,10 @@ ul {
     height: 47%;
 }
 
+#objectsList {
+    box-shadow: 0px 0px 0px 0px #888888 inset;
+}
+
 #shapeSpan, #objSpan {
     position: relative;
     top: 15%;
@@ -118,4 +127,31 @@ ul {
 #rotationUL {
     padding-top: 5px;
     padding-left: 10px;
+}
+
+/*jQuery UI*/
+#feedback {
+    font-size: 1em;
+}
+#selectable .ui-selecting {
+    background: #FECA40;
+    width: 100%;
+}
+
+#selectable .ui-selected {
+    background: #F39814;
+    color: white;
+    width: 100%;
+}
+#selectable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 95%;
+}
+#selectable li {
+    margin: 1px;
+    padding: 3px;
+    font-size: 1em;
+    height: 15px;
 }

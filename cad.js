@@ -84,6 +84,10 @@ function createCube(x, y, z, s) {
 
 function updateObjectsList() {
     console.log(objectsList);
+    $('#objectsList').html('');
+
+    // for()
+    //     $('#objectsList').append('<div class=\'objectListItem\'></div>')
 }
 
 // Assign click handlers
@@ -104,6 +108,17 @@ $(document).ready(function() {
 
 
 // Debugging
+  $(function() {
+    $( '#selectable' ).selectable({
+        selected: function(){
+            eventTrigger();
+        }
+    });
+  });
+
+function eventTrigger() {
+    console.log('event triggered');
+}
 var a = new Sphere(0, 0, 0, 10);
 var b = new Cone(0, 0, 0, 5, 3);
 var c = new Cylinder(0, 0, 0, 6, 8);
