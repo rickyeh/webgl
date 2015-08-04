@@ -19,6 +19,16 @@ function Shape(x, y, z, type) {
     this.type = type;
 }
 
+Shape.prototype.move = function(x, y, z) {
+    this.x += x;
+    this.y += y;
+    this.z += z;
+};
+
+Shape.prototype.toString = function() {
+    return 'Shape(' + this.x + ' ' + this.y + ' ' + this.z + ')';
+};
+
 function Sphere(x, y, z, radius){
     Shape.call(this, x, y, z, SPHERE);
     this.radius = radius;
