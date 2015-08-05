@@ -1,6 +1,3 @@
-//Shape.prototype.toString = function() { return 'Shape( ' + this.x + ' ' + this.y +')' } 
-
-
 // CONSTANTS
 var SPHERE = 'sphere';
 var CONE = 'cone';
@@ -84,11 +81,15 @@ function createCube(x, y, z, s) {
 
 function updateObjectsList() {
     console.log(objectsList);
-    $('#objectsList').html('');
+    $('#selectable').html('');
 
-    // for()
-    //     $('#objectsList').append('<div class=\'objectListItem\'></div>')
+    for (var i = 0; i < objectsList.length; i++) {
+        console.log(objectsList[i]);
+        $('#selectable').append('<li class="ui-widget-content">'+
+        i + '. ' + objectsList[i].type+'</li>');
+    }
 }
+
 
 // Assign click handlers
 $(document).ready(function() {
@@ -106,7 +107,10 @@ $(document).ready(function() {
     });
 });
 
-
+                      // <li class="ui-widget-content">Shape 5</li>
+                      // <li class="ui-widget-content">Item 2</li>
+                      // <li class="ui-widget-content">Item 3</li>
+                      // <li class="ui-widget-content">Item 4</li>
 // Debugging
   $(function() {
     $( '#selectable' ).selectable({
