@@ -6,6 +6,7 @@ var CUBE = 'cube';
 
 // Main array to store the created objects
 var objectsList = [];
+var currentObjectIndex = 0;
 
 
 // Declare objects
@@ -79,17 +80,40 @@ function createCube(x, y, z, s) {
     updateObjectsList();
 }
 
+// Called when new object is created or removed
 function updateObjectsList() {
     console.log(objectsList);
+
+    // Clear list on every update
     $('#selectable').html('');
 
+    // Anonymous function to fix closure issue
+    function captureIndex(i){
+        var tempFunc = function(){
+            selectItem(i);
+        };
+
+        return tempFunc;
+    }
+
+    // Loop through array elements and add items on list and click handlers
     for (var i = 0; i < objectsList.length; i++) {
-        console.log(objectsList[i]);
         $('#selectable').append('<li id=listItem'+i+' class=\'ui-widget-content\'>'+
         i + '. ' + objectsList[i].type+'</li>');
+
+        $('#listItem'+i).click(captureIndex(i));
     }
 }
 
+// Called when new item is selected.  Will update all values
+function selectItem(i) {
+    console.log('Select item is : ' + i);
+    currentObjectIndex = i;
+
+    $('#xLocation').html(objectsList[i].x);
+    $('#yLocation').html(objectsList[i].y);
+    $('#zLocation').html(objectsList[i].z);
+}
 
 // Assign click handlers
 $(document).ready(function() {
@@ -107,22 +131,11 @@ $(document).ready(function() {
     });
 });
 
-                      // <li class="ui-widget-content">Shape 5</li>
-                      // <li class="ui-widget-content">Item 2</li>
-                      // <li class="ui-widget-content">Item 3</li>
-                      // <li class="ui-widget-content">Item 4</li>
+$(function() {
+    $('#selectable').selectable();
+});
 // Debugging
-  $(function() {
-    $( '#selectable' ).selectable({
-        selected: function(){
-            eventTrigger();
-        }
-    });
-  });
 
-function eventTrigger() {
-    console.log('event triggered');
-}
 var a = new Sphere(0, 0, 0, 10);
 var b = new Cone(0, 0, 0, 5, 3);
 var c = new Cylinder(0, 0, 0, 6, 8);

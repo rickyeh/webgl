@@ -71,11 +71,16 @@ ul {
     margin-left: 10px;
 }
 .coordinateDiv {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 18px;
     background-color: #EEE;
     float: left;
     margin-left: 2px;
+
+    color: #222;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .objectListItem {
