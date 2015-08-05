@@ -85,7 +85,7 @@ function updateObjectsList() {
 
     for (var i = 0; i < objectsList.length; i++) {
         console.log(objectsList[i]);
-        $('#selectable').append('<li class="ui-widget-content">'+
+        $('#selectable').append('<li id=listItem'+i+' class=\'ui-widget-content\'>'+
         i + '. ' + objectsList[i].type+'</li>');
     }
 }
