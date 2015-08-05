@@ -117,6 +117,7 @@ ul {
 
 #objectsList {
     box-shadow: 0px 0px 0px 0px #888888 inset;
+    overflow: scroll;
 }
 
 #shapeSpan, #objSpan {
@@ -135,13 +136,13 @@ ul {
 }
 #selectable .ui-selecting {
     background: #FECA40;
-    width: 100%;
+    width: 96%;
 }
 
 #selectable .ui-selected {
     background: #F39814;
     color: white;
-    width: 100%;
+    width: 96%;
 }
 #selectable {
     list-style-type: none;
@@ -150,8 +151,18 @@ ul {
     width: 95%;
 }
 #selectable li {
-    margin: 1px;
-    padding: 3px;
+    margin-left: 5px;
+    padding: 5px;
     font-size: 1em;
     height: 15px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(150,150,150,.5);
+    -webkit-box-shadow: 0 0 1px rgba(150,150,150,.4);
 }
