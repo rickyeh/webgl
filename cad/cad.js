@@ -137,19 +137,21 @@ $(function() {
     // THREE JS RENDERING
     var canvas = $('#canvas');
 
+    // Set up Scene, Camera, and Renderer
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
+    var camera = new THREE.PerspectiveCamera(75, canvas.width() / canvas.height(), 0.1, 1000);
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width(), canvas.height());
 
+    // Attach renderer to canvas
     canvas.append(renderer.domElement);
 
+    // Set up cube object
     var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.MeshBasicMaterial({
+    var material = new THREE.LineBasicMaterial({
         color: 0x00ff00
     });
-    var cube = new THREE.Mesh(geometry, material);
+    var cube = new THREE.Line(geometry, material);
     scene.add(cube);
 
     function render() {
