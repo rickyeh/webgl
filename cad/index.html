@@ -5,9 +5,9 @@
         </script>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="Common/webgl-utils.js"></script>
-        <script type="text/javascript" src="Common/initShaders.js"></script>
-        <script type="text/javascript" src="Common/MV.js"></script>
+        <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+        <script type="text/javascript" src="../Common/initShaders.js"></script>
+        <script type="text/javascript" src="../Common/MV.js"></script>
         <script type="text/javascript" src="cad.js"></script>
         <link rel="stylesheet" type="text/css" href="cad.css">
     </head>
@@ -22,7 +22,10 @@
                     <button id="insertCube" class="shapeToggle">Cube</button>
                 </div>
             </div>
-            <div id="midSection" class="section"></div>
+            <div id="midSection" class="section">
+                <div id="canvas" class="section"></div>
+                <!-- 3D CANVAS HERE -->
+            </div>
             <div id="rightSection" class="section">
                 <div id="objectsTitle" class="sidebarSection textTitle"><span id="objSpan">Objects</span></div>
                 <div id="objectsList" class="sidebarSection">

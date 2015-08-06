@@ -109,6 +109,13 @@ ul {
     background-color: #444444;
 }
 
+#canvas {
+    height: 590px;
+    width: 590px;
+    margin: 5px;
+    box-shadow: none;
+}
+
 #shapeTitle, #objectsTitle {
     height: 6%;
 }

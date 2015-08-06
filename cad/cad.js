@@ -133,15 +133,46 @@ $(document).ready(function() {
 
 $(function() {
     $('#selectable').selectable();
+
+    // THREE JS RENDERING
+    var canvas = $('#canvas');
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(canvas.width(), canvas.height());
+
+    canvas.append(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0x00ff00
+    });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    function render() {
+        requestAnimationFrame(render);
+
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+
+        renderer.render(scene, camera);
+    }
+    render();
+
+    camera.position.z = 5;
 });
+
 // Debugging
 
-var a = new Sphere(0, 0, 0, 10);
-var b = new Cone(0, 0, 0, 5, 3);
-var c = new Cylinder(0, 0, 0, 6, 8);
-var d = new Cube(0, 0, 0, 20);
+// var a = new Sphere(0, 0, 0, 10);
+// var b = new Cone(0, 0, 0, 5, 3);
+// var c = new Cylinder(0, 0, 0, 6, 8);
+// var d = new Cube(0, 0, 0, 20);
 
-console.log(a);
-console.log(b);
-console.log(c);
-console.log(d);
+// console.log(a);
+// console.log(b);
+// console.log(c);
+// console.log(d);
