@@ -8,6 +8,10 @@ var CUBE = 'cube';
 var objectsList = [];
 var currentObjectIndex = 0;
 
+var scene;
+var camera;
+var renderer;
+
 
 // Declare objects
 function Shape(x, y, z, type) {
@@ -75,9 +79,30 @@ function createCylinder(x, y, z, r, h) {
 }
 
 function createCube(x, y, z, s) {
+    if (s === 0) {
+        s = 4;
+    }
+
     objectsList.push(new Cube(x, y, z, s));
     console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
     updateObjectsList();
+
+    var cubeGeometry = new THREE.BoxGeometry(s, s, s);
+    var cubeMaterial = new THREE.MeshBasicMaterial({
+        color: 0x0000ee,
+        transparent: true,
+        opacity: 0.3
+    });
+
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    var cubeEdges = new THREE.EdgesHelper(cube, 0x00ff00);
+
+    cube.position.x = x;
+    cube.position.y = y;
+    cube.position.z = z;
+
+    scene.add(cube);
+    scene.add(cubeEdges);
 }
 
 // Called when new object is created or removed
@@ -115,6 +140,17 @@ function selectItem(i) {
     $('#zLocation').html(objectsList[i].z);
 }
 
+// Returs random number between -8 an 8
+function getRNG() {
+    var num = Math.round(Math.random()*8);
+
+    if(Math.round(Math.random()*2) === 1) {
+        return num;
+    } else {
+        return -num;
+    }
+}
+
 // Assign click handlers
 $(document).ready(function() {
     $('#insertSphere').click(function() {
@@ -127,7 +163,7 @@ $(document).ready(function() {
         createCylinder(0, 0, 0, 5, 5);
     });
     $('#insertCube').click(function() {
-        createCube(0, 0, 0, 5);
+        createCube(getRNG(), getRNG(), getRNG(), getRNG());
     });
 });
 
@@ -138,51 +174,19 @@ $(function() {
     var canvas = $('#canvas');
 
     // Set up Scene, Camera, and Renderer
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(75, canvas.width() / canvas.height(), 0.1, 1000);
-    var renderer = new THREE.WebGLRenderer();
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(75, canvas.width() / canvas.height(), 0.1, 1000);
+    renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width(), canvas.height());
 
     // Attach renderer to canvas
     canvas.append(renderer.domElement);
 
-    // Test Object 1
-    var geometry = new THREE.BoxGeometry(5, 5, 5);
-    var material = new THREE.MeshBasicMaterial({
-        color: 0xff0000
-    });
-    material.transparent = true;
-    material.opacity = 0.3;
-
-    var object = new THREE.Mesh(geometry, material);
-    var edges = new THREE.EdgesHelper(object, 0x00ff00);
-
-    scene.add(object);
-    scene.add(edges);
-
-    // Test Object 2
-    var geometry2 = new THREE.BoxGeometry(6, 6, 6);
-    var material2 = new THREE.MeshBasicMaterial({
-        color: 0x0000ee
-    });
-    material2.transparent = true;
-    material2.opacity = 0.3;
-
-    var object2 = new THREE.Mesh(geometry2, material2);
-    var edges2 = new THREE.EdgesHelper(object2, 0x00ff00);
-
-    object2.position.x = 5;
-    object2.position.y = 5;
-    object2.position.z = 5;
-
-    scene.add(object2);
-    scene.add(edges2);
-
     function render() {
         requestAnimationFrame(render);
 
-        object.rotation.x += 0.1;
-        object.rotation.y += 0.01;
+        // object.rotation.x += 0.01;
+        // object.rotation.y += 0.01;
 
         renderer.render(scene, camera);
     }
