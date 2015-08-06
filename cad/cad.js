@@ -147,24 +147,38 @@ $(function() {
     canvas.append(renderer.domElement);
 
     // Set up cube object
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
-    var material = new THREE.LineBasicMaterial({
-        color: 0x00ff00
+    // var geometry = new THREE.BoxGeometry(1, 1, 1);
+    // var material = new THREE.LineBasicMaterial({
+    //     color: 0x00ff00
+    // });
+    // var cube = new THREE.Line(geometry, material);
+    // scene.add(cube);
+
+    var geometry = new THREE.BoxGeometry(5, 5, 5);
+    var material = new THREE.MeshBasicMaterial({
+        color: 0xff0000
     });
-    var cube = new THREE.Line(geometry, material);
-    scene.add(cube);
+    material.transparent = true;
+    material.opacity = 0.3;
+
+    var object = new THREE.Mesh(geometry, material);
+
+    var edges = new THREE.EdgesHelper(object, 0x00ff00);
+
+    scene.add(object);
+    scene.add(edges);
 
     function render() {
         requestAnimationFrame(render);
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        object.rotation.x += 0.01;
+        object.rotation.y += 0.01;
 
         renderer.render(scene, camera);
     }
     render();
 
-    camera.position.z = 5;
+    camera.position.z = 20;
 });
 
 // Debugging
