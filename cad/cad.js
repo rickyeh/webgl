@@ -87,6 +87,11 @@ function createCube(x, y, z, s) {
     console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
     updateObjectsList();
 
+    drawCube(x, y, z, s);
+}
+
+function drawCube(x, y, z, s) {
+
     var cubeGeometry = new THREE.BoxGeometry(s, s, s);
     var cubeMaterial = new THREE.MeshBasicMaterial({
         color: 0x0000ee,
@@ -148,6 +153,30 @@ function getRNG() {
         return num;
     } else {
         return -num;
+    }
+}
+
+// Re draws the entire scene
+function redraw() {
+    clearScene();
+    
+    for (var i = 0; i < objectsList.length; i++ ) {
+        // console.log(i);
+        switch (objectsList[i].type) {
+            case 'cube':
+                // console.log('creating cube');
+                drawCube(objectsList[i].x, objectsList[i].y, objectsList[i].z, objectsList[i].side);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+// Clears the scene of all objects.
+function clearScene() {
+    while (scene.children.length > 0){
+        scene.remove(scene.children[0]);
     }
 }
 
