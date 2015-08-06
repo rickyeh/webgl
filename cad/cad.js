@@ -146,14 +146,7 @@ $(function() {
     // Attach renderer to canvas
     canvas.append(renderer.domElement);
 
-    // Set up cube object
-    // var geometry = new THREE.BoxGeometry(1, 1, 1);
-    // var material = new THREE.LineBasicMaterial({
-    //     color: 0x00ff00
-    // });
-    // var cube = new THREE.Line(geometry, material);
-    // scene.add(cube);
-
+    // Test Object 1
     var geometry = new THREE.BoxGeometry(5, 5, 5);
     var material = new THREE.MeshBasicMaterial({
         color: 0xff0000
@@ -162,16 +155,33 @@ $(function() {
     material.opacity = 0.3;
 
     var object = new THREE.Mesh(geometry, material);
-
     var edges = new THREE.EdgesHelper(object, 0x00ff00);
 
     scene.add(object);
     scene.add(edges);
 
+    // Test Object 2
+    var geometry2 = new THREE.BoxGeometry(6, 6, 6);
+    var material2 = new THREE.MeshBasicMaterial({
+        color: 0x0000ee
+    });
+    material2.transparent = true;
+    material2.opacity = 0.3;
+
+    var object2 = new THREE.Mesh(geometry2, material2);
+    var edges2 = new THREE.EdgesHelper(object2, 0x00ff00);
+
+    object2.position.x = 5;
+    object2.position.y = 5;
+    object2.position.z = 5;
+
+    scene.add(object2);
+    scene.add(edges2);
+
     function render() {
         requestAnimationFrame(render);
 
-        object.rotation.x += 0.01;
+        object.rotation.x += 0.1;
         object.rotation.y += 0.01;
 
         renderer.render(scene, camera);
