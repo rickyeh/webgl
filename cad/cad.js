@@ -14,11 +14,12 @@ var renderer;
 
 
 // Declare objects
-function Shape(x, y, z, type) {
+function Shape(x, y, z, type, pointer) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.type = type;
+    this.pointer = pointer;
 }
 
 Shape.prototype.moveTo = function(x, y, z) {
@@ -48,8 +49,8 @@ function Cylinder(x, y, z, radius, height) {
     this.height = height;
 }
 
-function Cube(x, y, z, side) {
-    Shape.call(this, x, y, z, CUBE);
+function Cube(x, y, z, side, pointer) {
+    Shape.call(this, x, y, z, CUBE, pointer);
     this.side = side;
 }
 
@@ -83,15 +84,6 @@ function createCube(x, y, z, s) {
         s = 4;
     }
 
-    objectsList.push(new Cube(x, y, z, s));
-    console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
-    updateObjectsList();
-
-    drawCube(x, y, z, s);
-}
-
-function drawCube(x, y, z, s) {
-
     var cubeGeometry = new THREE.BoxGeometry(s, s, s);
     var cubeMaterial = new THREE.MeshBasicMaterial({
         color: 0x0000ee,
@@ -108,6 +100,10 @@ function drawCube(x, y, z, s) {
 
     scene.add(cube);
     scene.add(cubeEdges);
+
+    objectsList.push(new Cube(x, y, z, s, cube));
+    console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
+    updateObjectsList();
 }
 
 // Called when new object is created or removed
@@ -157,9 +153,7 @@ function getRNG() {
 }
 
 // Re draws the entire scene
-function redraw() {
-    clearScene();
-    
+function redraw() {    
     for (var i = 0; i < objectsList.length; i++ ) {
         // console.log(i);
         switch (objectsList[i].type) {
@@ -178,6 +172,7 @@ function clearScene() {
     while (scene.children.length > 0){
         scene.remove(scene.children[0]);
     }
+    objectsList = [];
 }
 
 // Assign click handlers
@@ -213,11 +208,8 @@ $(function() {
 
     function render() {
         requestAnimationFrame(render);
-
-        // object.rotation.x += 0.01;
-        // object.rotation.y += 0.01;
-
         renderer.render(scene, camera);
+
     }
     render();
 
