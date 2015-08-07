@@ -35,15 +35,35 @@
                     </ol>
                 </div>
                 <div id="controlsList" class="sidebarSection">
-                    <div id="locationSettings" class="controlsDiv">
+                    <div id="locationSettings" class="controlsFrame">
                         <span class="controlsLabel">Location</span>
-                        <ul id="locationUL">
+                            <div class="controlDivsWrapper">
+                                <div class="controlDivs">X:</div>
+                                <div class="controlDivs">
+                                    <div class="buttonDiv addButton">+</div>
+                                    <div id="xLocation" class="buttonDiv valueDisplay">0</div>
+                                    <div class="buttonDiv subButton">-</div>
+                                </div>
+                                <div class="controlDivs">Y:</div>
+                                <div class="controlDivs">
+                                    <div class="buttonDiv addButton"></div>
+                                    <div id="yLocation" class="buttonDiv valueDisplay"></div>
+                                    <div class="buttonDiv subButton"></div>
+                                </div>
+                                <div class="controlDivs">Z:</div>
+                                <div class="controlDivs">
+                                    <div class="buttonDiv addButton"></div>
+                                    <div id="zLocation" class="buttonDiv valueDisplay"></div>
+                                    <div class="buttonDiv subButton"></div>
+                                </div>
+                            </div>
+<!--                         <ul id="locationUL">
                             <li class="locationLI"><span class="locationXYZ">X:</span><div id="xLocation" class="coordinateDiv"></div></li>
                             <li class="locationLI"><span class="locationXYZ">Y:</span><div id="yLocation" class="coordinateDiv"></div></li>
                             <li class="locationLI"><span class="locationXYZ">Z:</span><div id="zLocation" class="coordinateDiv"></div></li>
-                        <ul>
+                        <ul> -->
                     </div>
-                    <div id="rotationSettings" class="controlsDiv">
+                    <div id="rotationSettings" class="controlsFrame">
                         <span class="controlsLabel">Rotation</span>
                         <ul id="rotationUL">
                             <li class="rotationLI">X: <button class="minusPlus">-</button><button class="minusPlus">+</button></span></li>
@@ -51,7 +71,7 @@
                             <li class="rotationLI">Z: <button class="minusPlus">-</button><button class="minusPlus">+</button></span></li>
                         <ul>
                     </div>
-                    <div id="sizeSettings" class="controlsDiv">
+                    <div id="sizeSettings" class="controlsFrame">
                         <span class="controlsLabel">Size</span>
                         <ul id="rotationUL">
                             <li class="rotationLI">X: <button class="minusPlus">-</button><button class="minusPlus">+</button></span></li>
