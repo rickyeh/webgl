@@ -68,7 +68,7 @@ function createSphere(x, y, z, r) {
 
     var sphereGeometry = new THREE.SphereGeometry(r, 16, 16);
     var sphereMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0000ee,
+        color: 0xdd0000,
         transparent: true,
         opacity: 0.3
     });
@@ -98,7 +98,7 @@ function createCone(x, y, z, r, h) {
 
     var coneGeometry = new THREE.CylinderGeometry(0, r, h, 16, 16);
     var coneMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0000ee,
+        color: 0xdd00dd,
         transparent: true,
         opacity: 0.3
     });
@@ -128,7 +128,7 @@ function createCylinder(x, y, z, r, h) {
 
     var cylinderGeometry = new THREE.CylinderGeometry(r, r, h, 16, 16);
     var cylinderMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0000ee,
+        color: 0x00eeee,
         transparent: true,
         opacity: 0.3
     });
@@ -224,39 +224,25 @@ function getRNG() {
     }
 }
 
-// Re draws the entire scene
-// function redraw() {    
-//     for (var i = 0; i < objectsList.length; i++ ) {
-//         // console.log(i);
-//         switch (objectsList[i].type) {
-//             case 'cube':
-//                 // console.log('creating cube');
-//                 drawCube(objectsList[i].x, objectsList[i].y, objectsList[i].z, objectsList[i].side);
-//                 break;
-//             default:
-//                 break;
-//         }
-//     }
-// }
-
 // Clears the scene of all objects.
 function clearScene() {
     while (scene.children.length > 0){
         scene.remove(scene.children[0]);
     }
     objectsList = [];
+    updateObjectsList();
 }
 
 // Assign click handlers
 $(document).ready(function() {
     $('#insertSphere').click(function() {
-        createSphere(0, 0, 0, 5);
+        createSphere(getRNG(), getRNG(), getRNG(), getRNG());
     });
     $('#insertCone').click(function() {
-        createCone(0, 0, 0, 5, 5);
+        createCone(getRNG(), getRNG(), getRNG(), getRNG(), getRNG());
     });
     $('#insertCylinder').click(function() {
-        createCylinder(0, 0, 0, 5, 5);
+        createCylinder(getRNG(), getRNG(), getRNG(), getRNG(), getRNG());
     });
     $('#insertCube').click(function() {
         createCube(getRNG(), getRNG(), getRNG(), getRNG());
