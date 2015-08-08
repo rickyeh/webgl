@@ -1,0 +1,7 @@
+{
+    "globals": { 
+      "THREE": false,
+      "objectsList": false,
+      "currentObjectIndex": true
+    }
+}

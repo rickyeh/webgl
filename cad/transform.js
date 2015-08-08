@@ -1,64 +1,72 @@
-console.log(currentObjectIndex);
-
 function initClickHandlers() {
-    // Location click handlers
-    $('#xAddLoc').click(function() {
-        moveXAdd(currentObjectIndex)
+    var timeout;
+
+    $(document).mouseup(function(){
+        clearInterval(timeout);
+        return false;
     });
+
+    // Location click handlers
+    $('#xAddLoc').mousedown(function() {
+        timeout = setInterval(function(){
+            moveXAdd(currentObjectIndex);
+        }, 50);
+    });
+
     $('#xSubLoc').click(function() {
-        moveXSub(currentObjectIndex)
+        moveXSub(currentObjectIndex);
     });
     $('#yAddLoc').click(function() {
-        moveYAdd(currentObjectIndex)
+        moveYAdd(currentObjectIndex);
     });
     $('#ySubLoc').click(function() {
-        moveYSub(currentObjectIndex)
+        moveYSub(currentObjectIndex);
     });
     $('#zAddLoc').click(function() {
-        moveZAdd(currentObjectIndex)
+        moveZAdd(currentObjectIndex);
     });
     $('#zSubLoc').click(function() {
-        moveZSub(currentObjectIndex)
+        moveZSub(currentObjectIndex);
     });
 
     // Rotation Click Handlers
     $('#xAddRot').click(function() {
-        rotateXAdd(currentObjectIndex)
+        rotateXAdd(currentObjectIndex);
     });
     $('#xSubRot').click(function() {
-        rotateXSub(currentObjectIndex)
+        rotateXSub(currentObjectIndex);
     });
     $('#yAddRot').click(function() {
-        rotateYAdd(currentObjectIndex)
+        rotateYAdd(currentObjectIndex);
     });
     $('#ySubRot').click(function() {
-        rotateYSub(currentObjectIndex)
+        rotateYSub(currentObjectIndex);
     });
     $('#zAddRot').click(function() {
-        rotateZAdd(currentObjectIndex)
+        rotateZAdd(currentObjectIndex);
     });
     $('#zSubRot').click(function() {
-        rotateZSub(currentObjectIndex)
+        rotateZSub(currentObjectIndex);
     });
 
     // Scale Click Handlers
     $('#xAddScale').click(function() {
-        scaleXAdd(currentObjectIndex)
+        scaleXAdd(currentObjectIndex);
     });
     $('#xSubScale').click(function() {
-        scaleXSub(currentObjectIndex)
+        scaleXSub(currentObjectIndex);
     });
     $('#yAddScale').click(function() {
-        scaleYAdd(currentObjectIndex)
+        scaleYAdd(currentObjectIndex);
     });
     $('#ySubScale').click(function() {
-        scaleYSub(currentObjectIndex)
+        scaleYSub(currentObjectIndex);
     });
     $('#zAddScale').click(function() {
-        scaleZAdd(currentObjectIndex)
+        scaleZAdd(currentObjectIndex);
     });
     $('#zSubScale').click(function() {
-        scaleZSub(currentObjectIndex)
+        scaleZSub(currentObjectIndex);
     });
 }
 
