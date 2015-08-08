@@ -37,14 +37,14 @@ function Sphere(x, y, z, radius, pointer) {
     this.radius = radius;
 }
 
-function Cone(x, y, z, radius, height) {
-    Shape.call(this, x, y, z, CONE);
+function Cone(x, y, z, radius, height, pointer) {
+    Shape.call(this, x, y, z, CONE, pointer);
     this.radius = radius;
     this.height = height;
 }
 
-function Cylinder(x, y, z, radius, height) {
-    Shape.call(this, x, y, z, CYLINDER);
+function Cylinder(x, y, z, radius, height, pointer) {
+    Shape.call(this, x, y, z, CYLINDER, pointer);
     this.radius = radius;
     this.height = height;
 }
@@ -89,14 +89,60 @@ function createSphere(x, y, z, r) {
 }
 
 function createCone(x, y, z, r, h) {
-    objectsList.push(new Cone(x, y, z, r, h));
+    if (r === 0) {
+        r = 4;
+    }
+    if (h === 0) {
+        h = 4;
+    }
+
+    var coneGeometry = new THREE.CylinderGeometry(0, r, h, 16, 16);
+    var coneMaterial = new THREE.MeshBasicMaterial({
+        color: 0x0000ee,
+        transparent: true,
+        opacity: 0.3
+    });
+    var cone = new THREE.Mesh(coneGeometry, coneMaterial);
+    var coneEdges = new THREE.EdgesHelper(cone, 0x00ff00);
+    
+    cone.position.x = x;
+    cone.position.y = y;
+    cone.position.z = z;
+
+    scene.add(cone);
+    scene.add(coneEdges);
+
+    objectsList.push(new Cone(x, y, z, r, h, cone));
     console.log('Cone created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
 }
 
 function createCylinder(x, y, z, r, h) {
-    objectsList.push(new Cylinder(x, y, z, r, h));
+    if (r === 0) {
+        r = 4;
+    }
+    if (h === 0) {
+        h = 4;
+    }
+
+    var cylinderGeometry = new THREE.CylinderGeometry(r, r, h, 16, 16);
+    var cylinderMaterial = new THREE.MeshBasicMaterial({
+        color: 0x0000ee,
+        transparent: true,
+        opacity: 0.3
+    });
+    var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    var cylinderEdges = new THREE.EdgesHelper(cylinder, 0x00ff00);
+    
+    cylinder.position.x = x;
+    cylinder.position.y = y;
+    cylinder.position.z = z;
+
+    scene.add(cylinder);
+    scene.add(cylinderEdges);
+
+    objectsList.push(new Cylinder(x, y, z, r, h, cylinder));
     console.log('Cylinder created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
