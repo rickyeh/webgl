@@ -32,8 +32,8 @@ Shape.prototype.toString = function() {
     return 'Shape(' + this.x + ' ' + this.y + ' ' + this.z + ')';
 };
 
-function Sphere(x, y, z, radius) {
-    Shape.call(this, x, y, z, SPHERE);
+function Sphere(x, y, z, radius, pointer) {
+    Shape.call(this, x, y, z, SPHERE, pointer);
     this.radius = radius;
 }
 
@@ -62,21 +62,44 @@ Cube.prototype = new Shape();
 
 // Create object functions.  Will be called when button is clicked.
 function createSphere(x, y, z, r) {
-    objectsList.push(new Sphere(x, y, z, r));
+    if (r === 0) {
+        r = 4;
+    }
+
+    var sphereGeometry = new THREE.SphereGeometry(r, 16, 16);
+    var sphereMaterial = new THREE.MeshBasicMaterial({
+        color: 0x0000ee,
+        transparent: true,
+        opacity: 0.3
+    });
+    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    var sphereEdges = new THREE.EdgesHelper(sphere, 0x00ff00);
+    
+    sphere.position.x = x;
+    sphere.position.y = y;
+    sphere.position.z = z;
+
+    scene.add(sphere);
+    scene.add(sphereEdges);
+
+    objectsList.push(new Sphere(x, y, z, r, sphere));
     console.log('Sphere created at (' + x + ',' + y + ',' + z + ') with r: ' + r);
     updateObjectsList();
+    selectItem(objectsList.length - 1);
 }
 
 function createCone(x, y, z, r, h) {
     objectsList.push(new Cone(x, y, z, r, h));
     console.log('Cone created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
+    selectItem(objectsList.length - 1);
 }
 
 function createCylinder(x, y, z, r, h) {
     objectsList.push(new Cylinder(x, y, z, r, h));
     console.log('Cylinder created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
+    selectItem(objectsList.length - 1);
 }
 
 function createCube(x, y, z, s) {
@@ -112,7 +135,6 @@ function updateObjectsList() {
     console.log(objectsList);
 
     if(objectsList.length === 1 ) {
-        console.log('init click run');
         initClickHandlers();
     }
 
