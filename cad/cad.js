@@ -104,11 +104,17 @@ function createCube(x, y, z, s) {
     objectsList.push(new Cube(x, y, z, s, cube));
     console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
     updateObjectsList();
+    selectItem(objectsList.length - 1);
 }
 
 // Called when new object is created or removed
 function updateObjectsList() {
     console.log(objectsList);
+
+    if(objectsList.length === 1 ) {
+        console.log('init click run');
+        initClickHandlers();
+    }
 
     // Clear list on every update
     $('#selectable').html('');
@@ -136,9 +142,7 @@ function selectItem(i) {
     console.log('Select item is : ' + i);
     currentObjectIndex = i;
 
-    $('#xLocation').html(objectsList[i].x);
-    $('#yLocation').html(objectsList[i].y);
-    $('#zLocation').html(objectsList[i].z);
+    updateTextDivs();
 }
 
 // Returs random number between -8 an 8
@@ -153,19 +157,19 @@ function getRNG() {
 }
 
 // Re draws the entire scene
-function redraw() {    
-    for (var i = 0; i < objectsList.length; i++ ) {
-        // console.log(i);
-        switch (objectsList[i].type) {
-            case 'cube':
-                // console.log('creating cube');
-                drawCube(objectsList[i].x, objectsList[i].y, objectsList[i].z, objectsList[i].side);
-                break;
-            default:
-                break;
-        }
-    }
-}
+// function redraw() {    
+//     for (var i = 0; i < objectsList.length; i++ ) {
+//         // console.log(i);
+//         switch (objectsList[i].type) {
+//             case 'cube':
+//                 // console.log('creating cube');
+//                 drawCube(objectsList[i].x, objectsList[i].y, objectsList[i].z, objectsList[i].side);
+//                 break;
+//             default:
+//                 break;
+//         }
+//     }
+// }
 
 // Clears the scene of all objects.
 function clearScene() {
@@ -215,15 +219,3 @@ $(function() {
 
     camera.position.z = 20;
 });
-
-// Debugging
-
-// var a = new Sphere(0, 0, 0, 10);
-// var b = new Cone(0, 0, 0, 5, 3);
-// var c = new Cylinder(0, 0, 0, 6, 8);
-// var d = new Cube(0, 0, 0, 20);
-
-// console.log(a);
-// console.log(b);
-// console.log(c);
-// console.log(d);

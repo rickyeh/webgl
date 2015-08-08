@@ -8,6 +8,12 @@ div {
     width: 100px;
     box-shadow: 0px 0px 0px 1px #888888 inset;
     color: #ddd;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 ul {
@@ -17,12 +23,6 @@ ul {
     font-size: 14px;
 }
 
-.minusPlus {
-    height: 15px;
-    width: 18px;
-    line-height: 10px;
-    font-weight: 600;
-}
 .locationLI {
     margin: 10px;
 }
@@ -91,10 +91,17 @@ ul {
 
 .addButton, .subButton {
     background-color: #DDD;
+    line-height: 17px;
+    color: #222;
+    cursor: pointer;
+
 }
 
 .valueDisplay {
     background-color: #333;
+    line-height: 17px;
+    color: #aaa;
+    font-size: 12px;
 }
 
 .locationXYZ {
