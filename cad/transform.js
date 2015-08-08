@@ -1,72 +1,106 @@
 function initClickHandlers() {
     var timeout;
 
-    $(document).mouseup(function(){
+    $(document).mouseup(function() {
         clearInterval(timeout);
         return false;
     });
 
     // Location click handlers
     $('#xAddLoc').mousedown(function() {
-        timeout = setInterval(function(){
+        timeout = setInterval(function() {
             moveXAdd(currentObjectIndex);
         }, 50);
     });
 
-    $('#xSubLoc').click(function() {
-        moveXSub(currentObjectIndex);
+    $('#xSubLoc').mousedown(function() {
+        timeout = setInterval(function() {
+            moveXSub(currentObjectIndex);
+        }, 50);
     });
-    $('#yAddLoc').click(function() {
-        moveYAdd(currentObjectIndex);
+    $('#yAddLoc').mousedown(function() {
+        timeout = setInterval(function() {
+            moveYAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#ySubLoc').click(function() {
-        moveYSub(currentObjectIndex);
+    $('#ySubLoc').mousedown(function() {
+        timeout = setInterval(function() {
+            moveYSub(currentObjectIndex);
+        }, 50);
     });
-    $('#zAddLoc').click(function() {
-        moveZAdd(currentObjectIndex);
+    $('#zAddLoc').mousedown(function() {
+        timeout = setInterval(function() {
+            moveZAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#zSubLoc').click(function() {
-        moveZSub(currentObjectIndex);
+    $('#zSubLoc').mousedown(function() {
+        timeout = setInterval(function() {
+            moveZSub(currentObjectIndex);
+        }, 50);
     });
 
     // Rotation Click Handlers
-    $('#xAddRot').click(function() {
-        rotateXAdd(currentObjectIndex);
+    $('#xAddRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateXAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#xSubRot').click(function() {
-        rotateXSub(currentObjectIndex);
+    $('#xSubRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateXSub(currentObjectIndex);
+        }, 50);
     });
-    $('#yAddRot').click(function() {
-        rotateYAdd(currentObjectIndex);
+    $('#yAddRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateYAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#ySubRot').click(function() {
-        rotateYSub(currentObjectIndex);
+    $('#ySubRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateYSub(currentObjectIndex);
+        }, 50);
     });
-    $('#zAddRot').click(function() {
-        rotateZAdd(currentObjectIndex);
+    $('#zAddRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateZAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#zSubRot').click(function() {
-        rotateZSub(currentObjectIndex);
+    $('#zSubRot').mousedown(function() {
+        timeout = setInterval(function() {
+            rotateZSub(currentObjectIndex);
+        }, 50);
     });
 
     // Scale Click Handlers
-    $('#xAddScale').click(function() {
-        scaleXAdd(currentObjectIndex);
+    $('#xAddScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleXAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#xSubScale').click(function() {
-        scaleXSub(currentObjectIndex);
+    $('#xSubScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleXSub(currentObjectIndex);
+        }, 50);
     });
-    $('#yAddScale').click(function() {
-        scaleYAdd(currentObjectIndex);
+    $('#yAddScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleYAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#ySubScale').click(function() {
-        scaleYSub(currentObjectIndex);
+    $('#ySubScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleYSub(currentObjectIndex);
+        }, 50);
     });
-    $('#zAddScale').click(function() {
-        scaleZAdd(currentObjectIndex);
+    $('#zAddScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleZAdd(currentObjectIndex);
+        }, 50);
     });
-    $('#zSubScale').click(function() {
-        scaleZSub(currentObjectIndex);
+    $('#zSubScale').mousedown(function() {
+        timeout = setInterval(function() {
+            scaleZSub(currentObjectIndex);
+        }, 50);
     });
 }
 
