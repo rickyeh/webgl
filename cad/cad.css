@@ -14,6 +14,7 @@ div {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    border-radius: 2px;
 }
 
 ul {
@@ -131,6 +132,9 @@ ul {
     width: 1000px;
     margin: auto;
     margin-top: 30px;
+    box-shadow: 0px 0px 0px 1px #555 inset;
+    border: 1px solid #777;
+    border-radius: 2px;
 }
 
 #leftSection {
@@ -167,8 +171,9 @@ ul {
 }
 
 #objectsList {
-    box-shadow: 0px 0px 0px 0px #888888 inset;
+    box-shadow: 0px 0px 0px 1px #888888 inset;
     overflow: scroll;
+    background-color: #333;
 }
 
 #shapeSpan, #objSpan {
@@ -207,7 +212,7 @@ ul {
     font-size: 1em;
     height: 15px;
 }
-
+/*
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 10px;
@@ -216,4 +221,4 @@ ul {
     border-radius: 4px;
     background-color: rgba(150,150,150,.5);
     -webkit-box-shadow: 0 0 1px rgba(150,150,150,.4);
-}
+}*/

@@ -203,6 +203,11 @@ function updateObjectsList() {
 
         $('#listItem'+i).click(captureIndex(i));
     }
+
+    // Highlights the most recently created item
+    $('#listItem'+(i-1)).addClass('ui-selected');
+
+    $('#objectsList').scrollTop($('#selectable')[0].scrollHeight);
 }
 
 // Called when new item is selected.  Will update all values
