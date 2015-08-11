@@ -126,6 +126,11 @@ ul {
     height: 20px;
     width: 100%;
 }
+.deleteButton {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
 
 #pageWrapper {
     height: 600px;
@@ -212,6 +217,15 @@ ul {
     font-size: 1em;
     height: 15px;
 }
+#clearAll {
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px #000000 inset;
+}
+
 /*
 ::-webkit-scrollbar {
     -webkit-appearance: none;

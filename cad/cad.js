@@ -256,6 +256,9 @@ $(document).ready(function() {
 
 $(function() {
     $('#selectable').selectable();
+    $('#clearAll').click(function(){
+        clearScene();
+    });
 
     // THREE JS RENDERING
     var canvas = $('#canvas');
