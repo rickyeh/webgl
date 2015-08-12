@@ -14,12 +14,13 @@ var renderer;
 
 
 // Declare objects
-function Shape(x, y, z, type, pointer) {
+function Shape(x, y, z, type, mesh, edges) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.type = type;
-    this.pointer = pointer;
+    this.mesh = mesh;
+    this.edges = edges;
 }
 
 Shape.prototype.moveTo = function(x, y, z) {
@@ -32,25 +33,25 @@ Shape.prototype.toString = function() {
     return 'Shape(' + this.x + ' ' + this.y + ' ' + this.z + ')';
 };
 
-function Sphere(x, y, z, radius, pointer) {
-    Shape.call(this, x, y, z, SPHERE, pointer);
+function Sphere(x, y, z, radius, mesh, edges) {
+    Shape.call(this, x, y, z, SPHERE, mesh, edges);
     this.radius = radius;
 }
 
-function Cone(x, y, z, radius, height, pointer) {
-    Shape.call(this, x, y, z, CONE, pointer);
-    this.radius = radius;
-    this.height = height;
-}
-
-function Cylinder(x, y, z, radius, height, pointer) {
-    Shape.call(this, x, y, z, CYLINDER, pointer);
+function Cone(x, y, z, radius, height, mesh, edges) {
+    Shape.call(this, x, y, z, CONE, mesh, edges);
     this.radius = radius;
     this.height = height;
 }
 
-function Cube(x, y, z, side, pointer) {
-    Shape.call(this, x, y, z, CUBE, pointer);
+function Cylinder(x, y, z, radius, height, mesh, edges) {
+    Shape.call(this, x, y, z, CYLINDER, mesh, edges);
+    this.radius = radius;
+    this.height = height;
+}
+
+function Cube(x, y, z, side, mesh, edges) {
+    Shape.call(this, x, y, z, CUBE, mesh, edges);
     this.side = side;
 }
 
@@ -68,9 +69,9 @@ function createSphere(x, y, z, r) {
 
     var sphereGeometry = new THREE.SphereGeometry(r, 16, 16);
     var sphereMaterial = new THREE.MeshBasicMaterial({
-        color: 0xdd0000,
+        color: getRandomColor(),
         transparent: true,
-        opacity: 0.3
+        opacity: 0.88
     });
     var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     var sphereEdges = new THREE.EdgesHelper(sphere, 0x00ff00);
@@ -82,7 +83,7 @@ function createSphere(x, y, z, r) {
     scene.add(sphere);
     scene.add(sphereEdges);
 
-    objectsList.push(new Sphere(x, y, z, r, sphere));
+    objectsList.push(new Sphere(x, y, z, r, sphere, sphereEdges));
     console.log('Sphere created at (' + x + ',' + y + ',' + z + ') with r: ' + r);
     updateObjectsList();
     selectItem(objectsList.length - 1);
@@ -98,9 +99,9 @@ function createCone(x, y, z, r, h) {
 
     var coneGeometry = new THREE.CylinderGeometry(0, r, h, 16, 16);
     var coneMaterial = new THREE.MeshBasicMaterial({
-        color: 0xdd00dd,
+        color: getRandomColor(),
         transparent: true,
-        opacity: 0.3
+        opacity: 0.88
     });
     var cone = new THREE.Mesh(coneGeometry, coneMaterial);
     var coneEdges = new THREE.EdgesHelper(cone, 0x00ff00);
@@ -112,7 +113,7 @@ function createCone(x, y, z, r, h) {
     scene.add(cone);
     scene.add(coneEdges);
 
-    objectsList.push(new Cone(x, y, z, r, h, cone));
+    objectsList.push(new Cone(x, y, z, r, h, cone, coneEdges));
     console.log('Cone created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
@@ -128,9 +129,9 @@ function createCylinder(x, y, z, r, h) {
 
     var cylinderGeometry = new THREE.CylinderGeometry(r, r, h, 16, 16);
     var cylinderMaterial = new THREE.MeshBasicMaterial({
-        color: 0x00eeee,
+        color: getRandomColor(),
         transparent: true,
-        opacity: 0.3
+        opacity: 0.88
     });
     var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
     var cylinderEdges = new THREE.EdgesHelper(cylinder, 0x00ff00);
@@ -142,7 +143,7 @@ function createCylinder(x, y, z, r, h) {
     scene.add(cylinder);
     scene.add(cylinderEdges);
 
-    objectsList.push(new Cylinder(x, y, z, r, h, cylinder));
+    objectsList.push(new Cylinder(x, y, z, r, h, cylinder, cylinderEdges));
     console.log('Cylinder created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
@@ -155,9 +156,9 @@ function createCube(x, y, z, s) {
 
     var cubeGeometry = new THREE.BoxGeometry(s, s, s);
     var cubeMaterial = new THREE.MeshBasicMaterial({
-        color: 0x0000ee,
+        color: getRandomColor(),
         transparent: true,
-        opacity: 0.3
+        opacity: 0.88
     });
 
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -170,7 +171,7 @@ function createCube(x, y, z, s) {
     scene.add(cube);
     scene.add(cubeEdges);
 
-    objectsList.push(new Cube(x, y, z, s, cube));
+    objectsList.push(new Cube(x, y, z, s, cube, cubeEdges));
     console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
     updateObjectsList();
     selectItem(objectsList.length - 1);
@@ -188,20 +189,30 @@ function updateObjectsList() {
     $('#selectable').html('');
 
     // Anonymous function to fix closure issue
-    function captureIndex(i){
-        var tempFunc = function(){
+    function captureIndex(i) {
+        var tempFunc = function() {
             selectItem(i);
         };
 
         return tempFunc;
     }
 
+    function captureDeleteIndex(i) {
+        var tempFunc = function() {
+            deleteItem(i);
+        };
+        return tempFunc;
+    }
+
     // Loop through array elements and add items on list and click handlers
     for (var i = 0; i < objectsList.length; i++) {
-        $('#selectable').append('<li id=listItem'+i+' class=\'ui-widget-content\'>'+
+        $('#selectable').append('<li id=listItem'+ i +' class=\'ui-widget-content\'>'+
         i + '. ' + objectsList[i].type+'</li>');
 
         $('#listItem'+i).click(captureIndex(i));
+
+        $('#listItem'+i).append('<div id="deleteItem'+ i +'" class="deleteButton">&#x00D7</div>');
+        $('#deleteItem'+i).click(captureDeleteIndex(i));
     }
 
     // Highlights the most recently created item
@@ -216,6 +227,16 @@ function selectItem(i) {
     currentObjectIndex = i;
 
     updateTextDivs();
+}
+
+// Called to delete a specific object on the objectsList
+function deleteItem(i) {
+    console.log('Deleting Item : ' + i);
+    scene.remove(objectsList[i].mesh);
+    scene.remove(objectsList[i].edges);
+
+    objectsList.splice(i, 1);
+    updateObjectsList();
 }
 
 // Returs random number between -8 an 8
@@ -238,6 +259,21 @@ function clearScene() {
     updateObjectsList();
 }
 
+function getRandomColor() {
+    var r = 28 + Math.floor(Math.random() * 228); // 128-255
+    var g = 28 + Math.floor(Math.random() * 228);
+    var b = 28 + Math.floor(Math.random() * 228);
+
+    r = r << 16;
+    g = g << 8;
+
+    var color = r|g|b;
+
+    console.log(color.toString(16));
+
+    return color;
+}
+
 // Assign click handlers
 $(document).ready(function() {
     $('#insertSphere').click(function() {
@@ -257,7 +293,10 @@ $(document).ready(function() {
 $(function() {
     $('#selectable').selectable();
     $('#clearAll').click(function(){
-        clearScene();
+        var result = confirm('Delete all objects?');
+        if (result) {
+            clearScene();
+        }
     });
 
     // THREE JS RENDERING
@@ -279,5 +318,5 @@ $(function() {
     }
     render();
 
-    camera.position.z = 20;
+    camera.position.z = 25;
 });

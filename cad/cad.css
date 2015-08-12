@@ -129,7 +129,10 @@ ul {
 .deleteButton {
     height: 20px;
     width: 20px;
+    float: right;
     cursor: pointer;
+    right: 0px;
+    box-shadow: 0 0 0 0 #000 inset;
 }
 
 #pageWrapper {
@@ -197,19 +200,18 @@ ul {
 }
 #selectable .ui-selecting {
     background: #FECA40;
-    width: 96%;
 }
 
 #selectable .ui-selected {
     background: #F39814;
     color: white;
-    width: 96%;
+    /*width: 96%;*/
 }
 #selectable {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 95%;
+    width: 98%;
 }
 #selectable li {
     margin-left: 5px;
