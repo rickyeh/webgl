@@ -9,12 +9,14 @@
         <script type="text/javascript" src="../Common/MV.js"></script>
         <script type="text/javascript" src="cad.js"></script>
         <script type="text/javascript" src="transform.js"></script>
+        <script src='spectrum.js'></script>
+        <link rel='stylesheet' href='spectrum.css'>
         <link rel="stylesheet" type="text/css" href="cad.css">
     </head>
     <body>
         <div id="pageWrapper">
             <div id="leftSection" class="section">
-                <div id="shapeTitle" class="sidebarSection textTitle"><span id="shapeSpan">Shapes</div>
+                <div id="shapeTitle" class="sidebarSection textTitle"><span id="shapeSpan">Shapes</span></div>
                 <div id="shapeButtons" class="sidebarSection">
                     <button id="insertSphere" class="shapeToggle">Sphere</button>
                     <button id="insertCone" class="shapeToggle">Cone</button>
@@ -37,8 +39,12 @@
                     </ol>
                 </div>
                 <div id="controlsList" class="sidebarSection">
+                    <div id="colorSettings" class="controlsFrame">
+                        <div class="controlsLabel">Color</div>
+                        <input id="colorPicker"></input>
+                    </div>
                     <div id="locationSettings" class="controlsFrame">
-                        <span class="controlsLabel">Location</span>
+                        <div class="controlsLabel">Location</div>
                             <div class="controlDivsWrapper">
                                 <div class="controlDivs">X:</div>
                                 <div class="controlDivs">
@@ -61,7 +67,7 @@
                             </div>
                     </div>
                     <div id="rotationSettings" class="controlsFrame">
-                        <span class="controlsLabel">Rotation</span>
+                        <div class="controlsLabel">Rotation</div>
                              <div class="controlDivsWrapper">
                                 <div class="controlDivs">X:</div>
                                 <div class="controlDivs">
@@ -84,7 +90,7 @@
                             </div>
                     </div>
                     <div id="sizeSettings" class="controlsFrame">
-                        <span class="controlsLabel">Size</span>
+                        <div class="controlsLabel">Size</div>
                              <div class="controlDivsWrapper">
                                 <div class="controlDivs">X:</div>
                                 <div class="controlDivs">

@@ -198,17 +198,19 @@ function scaleZAdd(i) {
 }
 
 function updateTextDivs() {
-    var i = currentObjectIndex;
+    var mesh = objectsList[currentObjectIndex].mesh;
 
-    $('#xLocation').html((objectsList[i].mesh.position.x).toFixed(1));
-    $('#yLocation').html((objectsList[i].mesh.position.y).toFixed(1));
-    $('#zLocation').html((objectsList[i].mesh.position.z).toFixed(1));
+    $('#xLocation').html((mesh.position.x).toFixed(1));
+    $('#yLocation').html((mesh.position.y).toFixed(1));
+    $('#zLocation').html((mesh.position.z).toFixed(1));
 
-    $('#xRotation').html((objectsList[i].mesh.rotation.x).toFixed(1));
-    $('#yRotation').html((objectsList[i].mesh.rotation.y).toFixed(1));
-    $('#zRotation').html((objectsList[i].mesh.rotation.z).toFixed(1));
+    $('#xRotation').html((mesh.rotation.x).toFixed(1));
+    $('#yRotation').html((mesh.rotation.y).toFixed(1));
+    $('#zRotation').html((mesh.rotation.z).toFixed(1));
 
-    $('#xScale').html((objectsList[i].mesh.scale.x).toFixed(1));
-    $('#yScale').html((objectsList[i].mesh.scale.y).toFixed(1));
-    $('#zScale').html((objectsList[i].mesh.scale.z).toFixed(1));
+    $('#xScale').html((mesh.scale.x).toFixed(1));
+    $('#yScale').html((mesh.scale.y).toFixed(1));
+    $('#zScale').html((mesh.scale.z).toFixed(1));
+
+    $('#colorPicker').spectrum('set', '#' + mesh.material.color.getHexString());
 }

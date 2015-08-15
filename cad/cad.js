@@ -268,9 +268,6 @@ function getRandomColor() {
     g = g << 8;
 
     var color = r|g|b;
-
-    console.log(color.toString(16));
-
     return color;
 }
 
@@ -296,6 +293,16 @@ $(function() {
         var result = confirm('Delete all objects?');
         if (result) {
             clearScene();
+        }
+    });
+
+    $('#colorPicker').spectrum({
+        color: '#f00',
+        cancelText: '',
+        chooseText: 'Close',
+        move: function(color) {
+            var newColor = color.toHexString().replace('#', '0x');
+            objectsList[currentObjectIndex].mesh.material.color.setHex(newColor);
         }
     });
 
