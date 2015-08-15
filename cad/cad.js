@@ -3,6 +3,7 @@ var SPHERE = 'sphere';
 var CONE = 'cone';
 var CYLINDER = 'cylinder';
 var CUBE = 'cube';
+var WIREFRAME_COLOR = '#99ff99'; 
 
 // Main array to store the created objects
 var objectsList = [];
@@ -71,10 +72,12 @@ function createSphere(x, y, z, r) {
     var sphereMaterial = new THREE.MeshBasicMaterial({
         color: getRandomColor(),
         transparent: true,
-        opacity: 0.88
+        opacity: 0.88,
+        side: THREE.DoubleSide
     });
+
     var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    var sphereEdges = new THREE.EdgesHelper(sphere, 0x00ff00);
+    var sphereEdges = new THREE.EdgesHelper(sphere, WIREFRAME_COLOR);
     
     sphere.position.x = x;
     sphere.position.y = y;
@@ -101,10 +104,11 @@ function createCone(x, y, z, r, h) {
     var coneMaterial = new THREE.MeshBasicMaterial({
         color: getRandomColor(),
         transparent: true,
-        opacity: 0.88
+        opacity: 0.88,
+        side: THREE.DoubleSide
     });
     var cone = new THREE.Mesh(coneGeometry, coneMaterial);
-    var coneEdges = new THREE.EdgesHelper(cone, 0x00ff00);
+    var coneEdges = new THREE.EdgesHelper(cone, WIREFRAME_COLOR);
     
     cone.position.x = x;
     cone.position.y = y;
@@ -131,10 +135,11 @@ function createCylinder(x, y, z, r, h) {
     var cylinderMaterial = new THREE.MeshBasicMaterial({
         color: getRandomColor(),
         transparent: true,
-        opacity: 0.88
+        opacity: 0.88,
+        side: THREE.DoubleSide
     });
     var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-    var cylinderEdges = new THREE.EdgesHelper(cylinder, 0x00ff00);
+    var cylinderEdges = new THREE.EdgesHelper(cylinder, WIREFRAME_COLOR);
     
     cylinder.position.x = x;
     cylinder.position.y = y;
@@ -158,11 +163,12 @@ function createCube(x, y, z, s) {
     var cubeMaterial = new THREE.MeshBasicMaterial({
         color: getRandomColor(),
         transparent: true,
-        opacity: 0.88
+        opacity: 0.88,
+        side: THREE.DoubleSide
     });
 
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    var cubeEdges = new THREE.EdgesHelper(cube, 0x00ff00);
+    var cubeEdges = new THREE.EdgesHelper(cube, WIREFRAME_COLOR);
 
     cube.position.x = x;
     cube.position.y = y;
