@@ -187,8 +187,8 @@ function createCube(x, y, z, s) {
 function updateObjectsList() {
     console.log(objectsList);
 
-    if(objectsList.length === 1 ) {
-        initClickHandlers();
+    if (objectsList.length === 1 ) {
+        setupObjectClickHandlers();
     }
 
     // Clear list on every update
@@ -277,8 +277,8 @@ function getRandomColor() {
     return color;
 }
 
-// Assign click handlers
-$(document).ready(function() {
+function setupShapeClickHandlers() {
+
     $('#insertSphere').click(function() {
         createSphere(getRNG(), getRNG(), getRNG(), getRNG());
     });
@@ -291,16 +291,19 @@ $(document).ready(function() {
     $('#insertCube').click(function() {
         createCube(getRNG(), getRNG(), getRNG(), getRNG());
     });
-});
-
-$(function() {
-    $('#selectable').selectable();
     $('#clearAll').click(function(){
         var result = confirm('Delete all objects?');
         if (result) {
             clearScene();
         }
     });
+}
+
+
+$(function() {
+    setupShapeClickHandlers();
+
+    $('#selectable').selectable();
 
     $('#colorPicker').spectrum({
         color: '#f00',
@@ -311,6 +314,7 @@ $(function() {
             objectsList[currentObjectIndex].mesh.material.color.setHex(newColor);
         }
     });
+
 
     // THREE JS RENDERING
     var canvas = $('#canvas');
