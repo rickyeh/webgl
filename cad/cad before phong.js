@@ -3,8 +3,6 @@ var SPHERE = 'sphere';
 var CONE = 'cone';
 var CYLINDER = 'cylinder';
 var CUBE = 'cube';
-var POINT = 'point';
-var AMBIENT = 'ambient';
 var WIREFRAME_COLOR = '#99ff99'; 
 
 // Main array to store the created objects
@@ -34,20 +32,6 @@ Shape.prototype.moveTo = function(x, y, z) {
 Shape.prototype.toString = function() {
     return 'Shape(' + this.x + ' ' + this.y + ' ' + this.z + ')';
 };
-
-function Light(x, y, z, type, mesh) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.type = type;
-    this.mesh = mesh;
-}
-
-Light.prototype.moveTo = function(x, y, z) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-}
 
 function Sphere(x, y, z, radius, mesh, edges) {
     Shape.call(this, x, y, z, SPHERE, mesh, edges);
@@ -175,23 +159,24 @@ function createCube(x, y, z, s) {
     }
 
     var cubeGeometry = new THREE.BoxGeometry(s, s, s);
-    var cubeMaterial = new THREE.MeshPhongMaterial({
-        ambient: 0x555555,
+    var cubeMaterial = new THREE.MeshBasicMaterial({
         color: getRandomColor(),
-        specular: 0xffffff,
-        shininess: 50,
-        shading: THREE.SmoothShading
+        transparent: true,
+        opacity: 0.88,
+        side: THREE.DoubleSide
     });
 
     var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    var cubeEdges = new THREE.EdgesHelper(cube, WIREFRAME_COLOR);
 
     cube.position.x = x;
     cube.position.y = y;
     cube.position.z = z;
 
     scene.add(cube);
+    scene.add(cubeEdges);
 
-    objectsList.push(new Cube(x, y, z, s, cube));
+    objectsList.push(new Cube(x, y, z, s, cube, cubeEdges));
     console.log('Cube created at (' + x + ',' + y + ',' + z + ') with s: ' + s);
     updateObjectsList();
     selectItem(objectsList.length - 1);
@@ -199,39 +184,9 @@ function createCube(x, y, z, s) {
 
 function createAmbient() {
     console.log('ambient light created');
-    var light = new THREE.AmbientLight( 0x111111 );
+    var light = new THREE.AmbientLight( 0x000000 );
     scene.add( light );
-
-}
-
-function createStaticLight(x, y, z) {
-
-    x = getRNG();
-    y = getRNG();
-    z = 30;
-    console.log('static light created');
-
-    var staticLight = new THREE.PointLight(0x333333, 1, 0);
-    staticLight.position.set(x,y,z);
-    scene.add(staticLight);
-
-    objectsList.push(new Light(x, y, z, POINT, staticLight));
-    updateObjectsList();
-    updateMeshMaterials();
-    console.log('Light created at (' + x + ',' + y + ',' + z + ')');
-}
-
-function createMovingLight() {
-
-}
-
-// Functino to update all mesh materials for light adding purposes
-function updateMeshMaterials() {
-    for (var i = 0; i < objectsList.length ; i++) {
-        if (objectsList[i].mesh.material) {
-            objectsList[i].mesh.material.needsUpdate = true;
-        }
-    }
+    console.log(light);
 }
 
 // Called when new object is created or removed
@@ -345,12 +300,6 @@ function setupShapeClickHandlers() {
     $('#insertAmbient').click(function() {
         createAmbient();
     });
-    $('#insertStatic').click(function() {
-        createStaticLight();
-    });
-    $('#insertMoving').click(function() {
-        createMovingLight();
-    });
     $('#clearAll').click(function(){
         var result = confirm('Delete all objects?');
         if (result) {
@@ -384,16 +333,6 @@ $(function() {
     camera = new THREE.PerspectiveCamera(75, canvas.width() / canvas.height(), 0.1, 1000);
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width(), canvas.height());
-
-    createCube(0, 0, 0, 25);
-
-    var light1 = new THREE.PointLight(0x222222, 1, 0);
-    light1.position.set(20,20,30);
-    scene.add(light1);
-
-    
-
-    // createStaticLight();
 
     // Attach renderer to canvas
     canvas.append(renderer.domElement);
