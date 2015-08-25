@@ -79,99 +79,96 @@ Cube.prototype = new Shape();
 
 // Create object functions.  Will be called when button is clicked.
 function createSphere(x, y, z, r) {
-    if (r === 0) {
-        r = 4;
+    if (r < 2) {
+        r = 5;
     }
 
     var sphereGeometry = new THREE.SphereGeometry(r, 16, 16);
-    var sphereMaterial = new THREE.MeshBasicMaterial({
+    var sphereMaterial = new THREE.MeshPhongMaterial({
+        ambient: 0x555555,
         color: getRandomColor(),
-        transparent: true,
-        opacity: 0.88,
-        side: THREE.DoubleSide
+        specular: 0xffffff,
+        shininess: random(1, 1000),
+        shading: THREE.SmoothShading
     });
 
     var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    var sphereEdges = new THREE.EdgesHelper(sphere, WIREFRAME_COLOR);
     
     sphere.position.x = x;
     sphere.position.y = y;
     sphere.position.z = z;
 
     scene.add(sphere);
-    scene.add(sphereEdges);
 
-    objectsList.push(new Sphere(x, y, z, r, sphere, sphereEdges));
+    objectsList.push(new Sphere(x, y, z, r, sphere));
     console.log('Sphere created at (' + x + ',' + y + ',' + z + ') with r: ' + r);
     updateObjectsList();
     selectItem(objectsList.length - 1);
 }
 
 function createCone(x, y, z, r, h) {
-    if (r === 0) {
-        r = 4;
+    if (r < 3 ) {
+        r = 5;
     }
-    if (h === 0) {
-        h = 4;
+    if (h < 3) {
+        h = 5;
     }
 
     var coneGeometry = new THREE.CylinderGeometry(0, r, h, 16, 16);
-    var coneMaterial = new THREE.MeshBasicMaterial({
+    var coneMaterial = new THREE.MeshPhongMaterial({
+        ambient: 0x555555,
         color: getRandomColor(),
-        transparent: true,
-        opacity: 0.88,
-        side: THREE.DoubleSide
+        specular: 0xffffff,
+        shininess: random(1, 1000),
+        shading: THREE.SmoothShading
     });
     var cone = new THREE.Mesh(coneGeometry, coneMaterial);
-    var coneEdges = new THREE.EdgesHelper(cone, WIREFRAME_COLOR);
     
     cone.position.x = x;
     cone.position.y = y;
     cone.position.z = z;
 
     scene.add(cone);
-    scene.add(coneEdges);
 
-    objectsList.push(new Cone(x, y, z, r, h, cone, coneEdges));
+    objectsList.push(new Cone(x, y, z, r, h, cone));
     console.log('Cone created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
 }
 
 function createCylinder(x, y, z, r, h) {
-    if (r === 0) {
-        r = 4;
+    if (r < 3) {
+        r = 5;
     }
-    if (h === 0) {
-        h = 4;
+    if (h < 3) {
+        h = 5;
     }
 
     var cylinderGeometry = new THREE.CylinderGeometry(r, r, h, 16, 16);
-    var cylinderMaterial = new THREE.MeshBasicMaterial({
+    var cylinderMaterial = new THREE.MeshPhongMaterial({
+        ambient: 0x555555,
         color: getRandomColor(),
-        transparent: true,
-        opacity: 0.88,
-        side: THREE.DoubleSide
+        specular: 0xffffff,
+        shininess: random(1, 1000),
+        shading: THREE.SmoothShading
     });
     var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-    var cylinderEdges = new THREE.EdgesHelper(cylinder, WIREFRAME_COLOR);
     
     cylinder.position.x = x;
     cylinder.position.y = y;
     cylinder.position.z = z;
 
     scene.add(cylinder);
-    scene.add(cylinderEdges);
 
-    objectsList.push(new Cylinder(x, y, z, r, h, cylinder, cylinderEdges));
+    objectsList.push(new Cylinder(x, y, z, r, h, cylinder));
     console.log('Cylinder created at (' + x + ',' + y + ',' + z + ') with r: ' + r + ' h: ' + h);
     updateObjectsList();
     selectItem(objectsList.length - 1);
 }
 
 function createCube(x, y, z, s) {
-    if (s === 0) {
-        s = 4;
+    if (s < 3) {
+        s = 5;
     }
 
     var cubeGeometry = new THREE.BoxGeometry(s, s, s);
@@ -179,7 +176,7 @@ function createCube(x, y, z, s) {
         ambient: 0x555555,
         color: getRandomColor(),
         specular: 0xffffff,
-        shininess: 50,
+        shininess: random(1, 1000),
         shading: THREE.SmoothShading
     });
 
@@ -199,17 +196,21 @@ function createCube(x, y, z, s) {
 
 function createAmbient() {
     console.log('ambient light created');
-    var light = new THREE.AmbientLight( 0x111111 );
+    var light = new THREE.AmbientLight( 0x222222 );
     scene.add( light );
 
 }
 
 function createStaticLight(x, y, z) {
 
-    x = getRNG();
-    y = getRNG();
+    if (!x) {
+        x = random(-20, 20);
+    }
+    if (!y) {
+        y = random(-20, 20);
+    }
+
     z = 30;
-    console.log('static light created');
 
     var staticLight = new THREE.PointLight(0x333333, 1, 0);
     staticLight.position.set(x,y,z);
@@ -218,10 +219,53 @@ function createStaticLight(x, y, z) {
     objectsList.push(new Light(x, y, z, POINT, staticLight));
     updateObjectsList();
     updateMeshMaterials();
+    selectItem(objectsList.length - 1);
     console.log('Light created at (' + x + ',' + y + ',' + z + ')');
 }
 
 function createMovingLight() {
+    createStaticLight(15, 15);
+
+    var movingRight = false;
+    var movingUp = false;
+    var lightIndex = currentObjectIndex;
+    var lightPosition = objectsList[currentObjectIndex].mesh.position;
+
+    function render() {
+        // Set bounds to change direction
+        if (lightPosition.x > 30 && movingRight) {
+            movingRight = false;
+        }
+        if (lightPosition.x < -30 && !movingRight) {
+            movingRight = true;
+        }
+
+        if (lightPosition.y > 30 && movingUp) {
+            movingUp = false;
+        }
+        if (lightPosition.y < -30 && !movingUp) {
+            movingUp = true;
+        }
+
+
+
+        // Move the lights
+        if (movingRight) {
+            moveXAdd(lightIndex, 2);
+        } else {
+            moveXSub(lightIndex, 2);
+        }
+
+        if (movingUp) {
+            moveYAdd(lightIndex);
+        } else {
+            moveYSub(lightIndex);
+        }
+
+
+        requestAnimationFrame(render);
+    }
+    render();
 
 }
 
@@ -290,21 +334,25 @@ function selectItem(i) {
 function deleteItem(i) {
     console.log('Deleting Item : ' + i);
     scene.remove(objectsList[i].mesh);
-    scene.remove(objectsList[i].edges);
 
     objectsList.splice(i, 1);
     updateObjectsList();
 }
 
-// Returs random number between -8 an 8
+// Returs random number between -10 an 10
 function getRNG() {
-    var num = Math.round(Math.random()*8);
+    var num = Math.round(Math.random()*10);
 
     if(Math.round(Math.random()*2) === 1) {
         return num;
     } else {
         return -num;
     }
+}
+
+// Returns random number between parameters specified, inclusive
+function random(min, max) {
+    return min + Math.round(Math.random() * (max - min));
 }
 
 // Clears the scene of all objects.
@@ -363,15 +411,21 @@ function setupShapeClickHandlers() {
 $(function() {
     setupShapeClickHandlers();
 
-    $('#selectable').selectable();
+    // $('#selectable').selectable();
 
     $('#colorPicker').spectrum({
         color: '#f00',
         cancelText: '',
         chooseText: 'Close',
-        move: function(color) {
+        move: function(color) { // Function that is called when color spectrum is moved
             var newColor = color.toHexString().replace('#', '0x');
-            objectsList[currentObjectIndex].mesh.material.color.setHex(newColor);
+
+            if (objectsList[currentObjectIndex].mesh.material) { // Check if it is a shape or light, then set color
+                objectsList[currentObjectIndex].mesh.material.color.setHex(newColor);
+            } else {
+                objectsList[currentObjectIndex].mesh.color.setHex(newColor);
+
+            }
         }
     });
 
@@ -385,15 +439,12 @@ $(function() {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width(), canvas.height());
 
-    createCube(0, 0, 0, 25);
+    // createCube(0, 0, 0, 15);
 
-    var light1 = new THREE.PointLight(0x222222, 1, 0);
-    light1.position.set(20,20,30);
-    scene.add(light1);
+    createStaticLight(15, 15);
+    createAmbient();
+    createAmbient();
 
-    
-
-    // createStaticLight();
 
     // Attach renderer to canvas
     canvas.append(renderer.domElement);

@@ -1,8 +1,9 @@
 <html>
     <head>
         <title>Assignment 3: CAD Application</title>
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <!-- // <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
+        <!-- // <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
+        <script type="text/javascript" src="jquery.js"></script>
         <script type="text/javascript" src="../Common/three.js"></script>
         <script type="text/javascript" src="../Common/webgl-utils.js"></script>
         <script type="text/javascript" src="../Common/initShaders.js"></script>
@@ -54,72 +55,72 @@
                     </div>
                     <div id="locationSettings" class="controlsFrame">
                         <div class="controlsLabel">Location</div>
-                            <div class="controlDivsWrapper">
-                                <div class="controlDivs">X:</div>
-                                <div class="controlDivs">
-                                    <div id="xAddLoc" class="buttonDiv addButton">+</div>
-                                    <div id="xLocation" class="buttonDiv valueDisplay"></div>
-                                    <div id="xSubLoc" class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Y:</div>
-                                <div class="controlDivs">
-                                    <div id="yAddLoc" class="buttonDiv addButton">+</div>
-                                    <div id="yLocation" class="buttonDiv valueDisplay"></div>
-                                    <div id="ySubLoc" class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Z:</div>
-                                <div class="controlDivs">
-                                    <div id="zAddLoc" class="buttonDiv addButton">+</div>
-                                    <div id="zLocation" class="buttonDiv valueDisplay"></div>
-                                    <div id="zSubLoc" class="buttonDiv subButton">-</div>
-                                </div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="xLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubLoc" class="buttonDiv subButton">-</div>
                             </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="yLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubLoc" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="zLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubLoc" class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
                     </div>
                     <div id="rotationSettings" class="controlsFrame">
                         <div class="controlsLabel">Rotation</div>
-                             <div class="controlDivsWrapper">
-                                <div class="controlDivs">X:</div>
-                                <div class="controlDivs">
-                                    <div id="xAddRot" class="buttonDiv addButton">+</div>
-                                    <div id="xRotation" class="buttonDiv valueDisplay"></div>
-                                    <div id="xSubRot" class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Y:</div>
-                                <div class="controlDivs">
-                                    <div id="yAddRot" class="buttonDiv addButton">+</div>
-                                    <div id="yRotation" class="buttonDiv valueDisplay"></div>
-                                    <div id="ySubRot" class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Z:</div>
-                                <div class="controlDivs">
-                                    <div id="zAddRot" class="buttonDiv addButton">+</div>
-                                    <div id="zRotation" class="buttonDiv valueDisplay"></div>
-                                    <div id="zSubRot" class="buttonDiv subButton">-</div>
-                                </div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddRot" class="buttonDiv addButton">+</div>
+                                <div id="xRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubRot" class="buttonDiv subButton">-</div>
                             </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddRot" class="buttonDiv addButton">+</div>
+                                <div id="yRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubRot" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddRot" class="buttonDiv addButton">+</div>
+                                <div id="zRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubRot" class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
                     </div>
                     <div id="sizeSettings" class="controlsFrame">
                         <div class="controlsLabel">Scale</div>
-                             <div class="controlDivsWrapper">
-                                <div class="controlDivs">X:</div>
-                                <div class="controlDivs">
-                                    <div id="xAddScale" class="buttonDiv addButton">+</div>
-                                    <div id="xScale" class="buttonDiv valueDisplay"></div>
-                                    <div id="xSubScale" class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Y:</div>
-                                <div class="controlDivs">
-                                    <div id="yAddScale"class="buttonDiv addButton">+</div>
-                                    <div id="yScale" class="buttonDiv valueDisplay"></div>
-                                    <div id="ySubScale"class="buttonDiv subButton">-</div>
-                                </div>
-                                <div class="controlDivs">Z:</div>
-                                <div class="controlDivs">
-                                    <div id="zAddScale"class="buttonDiv addButton">+</div>
-                                    <div id="zScale" class="buttonDiv valueDisplay"></div>
-                                    <div id="zSubScale"class="buttonDiv subButton">-</div>
-                                </div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddScale" class="buttonDiv addButton">+</div>
+                                <div id="xScale" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubScale" class="buttonDiv subButton">-</div>
                             </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddScale"class="buttonDiv addButton">+</div>
+                                <div id="yScale" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubScale"class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddScale"class="buttonDiv addButton">+</div>
+                                <div id="zScale" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubScale"class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

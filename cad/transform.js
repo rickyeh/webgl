@@ -105,33 +105,48 @@ function setupObjectClickHandlers() {
 }
 
 // Position functions
-function moveXSub(i) {
-    objectsList[i].mesh.position.x -= 0.1;
+function moveXSub(i, speed) {
+    if(!speed){
+        speed = 1;
+    }
+
+    objectsList[i].mesh.position.x -= 0.2 * speed;
     updateTextDivs();
 }
 
-function moveXAdd(i) {
-    objectsList[i].mesh.position.x += 0.1;
+function moveXAdd(i, speed) {
+    if(!speed){
+        speed = 1;
+    }
+
+    objectsList[i].mesh.position.x += 0.2 * speed;
     updateTextDivs();
 }
 
-function moveYSub(i) {
-    objectsList[i].mesh.position.y -= 0.1;
+function moveYSub(i, speed) {
+    if(!speed){
+        speed = 1;
+    }
+    objectsList[i].mesh.position.y -= 0.2 * speed;
     updateTextDivs();
 }
 
-function moveYAdd(i) {
-    objectsList[i].mesh.position.y += 0.1;
+function moveYAdd(i, speed) {
+    if(!speed){
+        speed = 1;
+    }
+
+    objectsList[i].mesh.position.y += 0.2 * speed;
     updateTextDivs();
 }
 
 function moveZSub(i) {
-    objectsList[i].mesh.position.z -= 0.1;
+    objectsList[i].mesh.position.z -= 0.2;
     updateTextDivs();
 }
 
 function moveZAdd(i) {
-    objectsList[i].mesh.position.z += 0.1;
+    objectsList[i].mesh.position.z += 0.2;
     updateTextDivs();
 }
 
@@ -212,5 +227,9 @@ function updateTextDivs() {
     $('#yScale').html((mesh.scale.y).toFixed(1));
     $('#zScale').html((mesh.scale.z).toFixed(1));
 
-    $('#colorPicker').spectrum('set', '#' + mesh.material.color.getHexString());
+    if (mesh.material) {
+        $('#colorPicker').spectrum('set', '#' + mesh.material.color.getHexString());
+    } else {
+        $('#colorPicker').spectrum('set', '#' + mesh.color.getHexString());
+    }
 }
