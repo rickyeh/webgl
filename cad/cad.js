@@ -411,7 +411,7 @@ function setupShapeClickHandlers() {
 $(function() {
     setupShapeClickHandlers();
 
-    // $('#selectable').selectable();
+    $('#selectable').selectable();
 
     $('#colorPicker').spectrum({
         color: '#f00',
