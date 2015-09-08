@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>Assignment 3: CAD Application</title>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <!-- // <script type="text/javascript" src="jquery.js"></script> -->
+        <script type="text/javascript" src="../Common/three.js"></script>
+        <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+        <script type="text/javascript" src="../Common/initShaders.js"></script>
+        <script type="text/javascript" src="../Common/MV.js"></script>
+        <script type="text/javascript" src="cad.js"></script>
+        <script type="text/javascript" src="transform.js"></script>
+        <script src='spectrum.js'></script>
+        <link rel='stylesheet' href='spectrum.css'>
+        <link rel="stylesheet" type="text/css" href="cad.css">
+    </head>
+    <body>
+        <div id="pageWrapper">
+            <div id="leftSection" class="section">
+                <div id="shapeTitle" class="sidebarSection textTitle"><span id="shapeSpan">Shapes</span></div>
+                <div id="shapeButtons" class="sidebarSection">
+                    <button id="insertSphere" class="shapeToggle">Sphere</button>
+                    <button id="insertCone" class="shapeToggle">Cone</button>
+                    <button id="insertCylinder" class="shapeToggle">Cylinder</button>
+                    <button id="insertCube" class="shapeToggle">Cube</button>
+                </div>
+                <div id="lightsTitle" class="sidebarSection textTitle"><span id="lightsSpan">Lights</span></div>
+                <div id="lightsButtons" class="sidebarSection">
+                    <button id="insertAmbient" class="shapeToggle">Ambient</button>
+                    <button id="insertStatic" class="shapeToggle">Static</button>
+                    <button id="insertMoving" class="shapeToggle">Moving</button>
+                </div>
+            </div>
+            <div id="midSection" class="section">
+                <div id="canvas" class="section"></div>
+                <!-- 3D CANVAS HERE -->
+            </div>
+            <div id="rightSection" class="section">
+                <div id="objectsTitle" class="sidebarSection textTitle">
+                    <span id="objSpan">Objects</span>
+                    <div id="clearAll" class="deleteButton">&#x00D7</div>
+                </div>
+                <div id="objectsList" class="sidebarSection">
+                    <ol id="selectable">
+                        <!-- Objects on List will be inserted here -->
+                    </ol>
+                </div>
+                <div id="controlsList" class="sidebarSection">
+                    <div id="colorSettings" class="controlsFrame">
+                        <div class="controlsLabel">Color</div>
+                        <div id="colorPickerWrapper">
+                            <input id="colorPicker"></input>
+                        </div>
+                    </div>
+                    <div id="locationSettings" class="controlsFrame">
+                        <div class="controlsLabel">Location</div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="xLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubLoc" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="yLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubLoc" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddLoc" class="buttonDiv addButton">+</div>
+                                <div id="zLocation" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubLoc" class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rotationSettings" class="controlsFrame">
+                        <div class="controlsLabel">Rotation</div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddRot" class="buttonDiv addButton">+</div>
+                                <div id="xRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubRot" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddRot" class="buttonDiv addButton">+</div>
+                                <div id="yRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubRot" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddRot" class="buttonDiv addButton">+</div>
+                                <div id="zRotation" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubRot" class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sizeSettings" class="controlsFrame">
+                        <div class="controlsLabel">Scale</div>
+                        <div class="controlDivsWrapper">
+                            <div class="controlDivs">X:</div>
+                            <div class="controlDivs">
+                                <div id="xAddScale" class="buttonDiv addButton">+</div>
+                                <div id="xScale" class="buttonDiv valueDisplay"></div>
+                                <div id="xSubScale" class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Y:</div>
+                            <div class="controlDivs">
+                                <div id="yAddScale"class="buttonDiv addButton">+</div>
+                                <div id="yScale" class="buttonDiv valueDisplay"></div>
+                                <div id="ySubScale"class="buttonDiv subButton">-</div>
+                            </div>
+                            <div class="controlDivs">Z:</div>
+                            <div class="controlDivs">
+                                <div id="zAddScale"class="buttonDiv addButton">+</div>
+                                <div id="zScale" class="buttonDiv valueDisplay"></div>
+                                <div id="zSubScale"class="buttonDiv subButton">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

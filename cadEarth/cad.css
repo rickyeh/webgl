@@ -1,0 +1,241 @@
+html {
+    background-color: #222222;
+    font-family: "Verdana";
+}
+
+div {
+    color: #ddd;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 2px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-top: 2px;
+    font-size: 14px;
+}
+
+.locationLI {
+    margin: 10px;
+}
+
+.rotationLI {
+    display: inline;
+    padding: 1px;
+}
+
+.section {
+    float: left;
+    height: 600px;
+}
+
+.sidebarSection {
+    width: 100%;
+}
+
+.textTitle {
+    color: #ddd;
+    text-align: center;
+    font-size: 16px;
+}
+
+.shapeToggle {
+    height: 20px;
+    width: 75px;
+    margin-top: 20px;
+    margin-left: 33%;
+}
+
+.controlsFrame {
+    width: 100%;
+}
+
+.controlsLabel {
+    font-size: 14px;
+    position: relative;
+    padding: 8px 10px 6px 10px;
+}
+
+.controlDivsWrapper {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 55px;
+}
+
+.controlDivs {
+    width: 16.67%;
+    float: left;
+    line-height: 55px;
+    text-align: center;
+}
+
+.buttonDiv {
+    width: 100%;
+    height: 18px;
+    color: red;
+}
+
+.addButton, .subButton {
+    background-color: #DDD;
+    line-height: 17px;
+    color: #222;
+    cursor: pointer;
+
+}
+
+.valueDisplay {
+    background-color: #333;
+    line-height: 17px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.locationXYZ {
+    float: left;
+    margin-left: 10px;
+}
+.coordinateDiv {
+    width: 25px;
+    height: 18px;
+    background-color: #EEE;
+    float: left;
+    margin-left: 2px;
+
+    color: #222;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.objectListItem {
+    height: 20px;
+    width: 100%;
+}
+.deleteButton {
+    height: 20px;
+    width: 20px;
+    float: right;
+    cursor: pointer;
+    right: 0px;
+    box-shadow: 0 0 0 0 #000 inset;
+}
+
+#pageWrapper {
+    height: 600px;
+    width: 1000px;
+    margin: auto;
+    margin-top: 30px;
+    box-shadow: 0px 0px 0px 1px #555 inset;
+    border: 1px solid #777;
+    border-radius: 2px;
+}
+
+#leftSection {
+    width: 200px;
+    background-color: #444444;
+}
+
+#midSection {
+    width: 600px;
+}
+
+#rightSection {
+    width: 200px;
+    background-color: #444444;
+}
+
+#canvas {
+    height: 590px;
+    width: 590px;
+    margin: 5px;
+    box-shadow: none;
+}
+
+#shapeTitle, #objectsTitle {
+    height: 5%;
+}
+
+#shapeButtons {
+    height: 70%
+}
+
+#controlsList {
+    height: 54%;
+}
+
+#objectsList {
+    overflow: scroll;
+    background-color: #333;
+    height: 40%;
+}
+
+#shapeSpan, #objSpan {
+    position: relative;
+    top: 15%;
+}
+
+#rotationUL {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+#colorPicker {
+    margin-left: 100px;
+}
+
+#colorPickerWrapper {
+    padding-left: 40px;
+}
+
+/*jQuery UI*/
+#feedback {
+    font-size: 1em;
+}
+#selectable .ui-selecting {
+    background: #FECA40;
+}
+
+#selectable .ui-selected {
+    background: #F39814;
+    color: white;
+    /*width: 96%;*/
+}
+#selectable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 98%;
+}
+#selectable li {
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 1em;
+    height: 15px;
+}
+#clearAll {
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px 0px #000000 inset;
+}
+
+/*
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(150,150,150,.5);
+    -webkit-box-shadow: 0 0 1px rgba(150,150,150,.4);
+}*/
